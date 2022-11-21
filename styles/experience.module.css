@@ -1,0 +1,30 @@
+.experience{
+    height: 90vh;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    border: 1px solid rgb(211, 204, 204);
+    border-radius: 10px;
+}
+.experience h4{
+    color: navy;
+    font-size: 6vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+
+}.experience p{
+    color: rgb(47, 47, 116);
+    
+}
+.section{
+    border: 1px solid rgb(72, 72, 117);
+    padding: 1vh 2vh;
+    border-radius: 3vh;
+    cursor: pointer;
+}
+.section:hover{
+    border: 3px solid rgb(7, 7, 100);
+    transition: all 0.5s ease;
+    font-weight: bold;
+}
