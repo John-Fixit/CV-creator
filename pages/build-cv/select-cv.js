@@ -16,7 +16,6 @@ function SelectCv() {
         }
     }
 
-
     const navigateBack = ()=>{
         router.back()
     }

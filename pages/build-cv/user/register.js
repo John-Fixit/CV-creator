@@ -13,7 +13,7 @@
             setuserDetail(user)
             setemail(user.email)
         }
-    }, [])
+    }, [])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
     const submit=()=>{
         userDetail.password = password
