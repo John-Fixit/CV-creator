@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "/styles/experience.module.css";
 import { useRouter } from "next/router";
-function experienceLevel() {
+function ExperienceLevel() {
   const router = useRouter()
   const levels = [{ level: "Minimal Experince", year: "BEGINNER" }, {level: ""}];
   const [text, settext] = useState("")
@@ -61,4 +61,4 @@ function experienceLevel() {
   );
 }
 
-export default experienceLevel;
+export default ExperienceLevel;

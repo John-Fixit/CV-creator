@@ -1,4 +1,10 @@
-
+.text-color{
+  color: navy !important;
+}
+.bg-color{
+  background-color: navy !important;
+  color: white !important;
+}
 .list-unstyled{
   width: 4vh;
   height: 4vh;

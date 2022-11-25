@@ -1,6 +1,6 @@
 import React from 'react'
 
-function index() {
+function Index() {
   return (
     <>
         <div className="container">
@@ -30,4 +30,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

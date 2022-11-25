@@ -3,7 +3,7 @@ import styles from "/styles/experience.module.css";
 import { GrDocumentText, GrUpload,} from "react-icons/gr";
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
-function selectCv() {
+function SelectCv() {
     const router = useRouter()
     const [select, setselect] = useState(1)
     const selectOpt=(params)=>{
@@ -80,4 +80,4 @@ function selectCv() {
   );
 }
 
-export default selectCv;
+export default SelectCv;
