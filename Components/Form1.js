@@ -17,12 +17,11 @@ function Form1() {
   const [email, setemail] = useState("")
   const [notValid, setnotValid] = useState(undefined)
   
-  const handleChange=(e)=>{
-        let fileSelected = e.target.files[0]
-        console.log(fileSelected);
-      }
+  // const handleChange=(e)=>{
+  //       let fileSelected = e.target.files[0]
+  //       console.log(fileSelected);
+  //     }
   const nextOpt =()=>{
-
 
    let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: ""};
    if(email == ""){
@@ -33,8 +32,6 @@ function Form1() {
      localStorage.setItem('personalInfo', JSON.stringify(userDetail));
      router.push('/build-cv/section/education');
    }
-
-
 
 }
 

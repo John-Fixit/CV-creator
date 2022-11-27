@@ -11,15 +11,6 @@ import Form1 from "../../../Components/form1";
 import { FaArrowLeft } from "react-icons/fa"
 
 function Cnct() {
-  // const router = useRouter();
-  // const navigateBack =()=>{
-  //   router.back();
-  // }
-
-  // const nextOpt =(params)=>{
-  //   router.push('/build-cv/section/cnct');
-  //   console.log(params);
-  // }
 
   return (
     <>

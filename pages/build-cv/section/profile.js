@@ -8,12 +8,14 @@ function ProfileNote() {
     useEffect(()=>{
         if(!localStorage.eduDetail){
             router.push('/build-cv/section/education')
-        }
-    }, [])
-
-    const nextOpt=()=>{
-        localStorage.setItem('profileBio', JSON.stringify(profile))
-        setprofile("")
+          }
+          
+        }, [])
+        
+        const nextOpt=()=>{
+          localStorage.setItem('profileBio', JSON.stringify(profile))
+          setprofile("")
+          router.push('/build-cv/section/employment')
     }
   return (
     <>
