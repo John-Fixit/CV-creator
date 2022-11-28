@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styles from "/styles/experience.module.css"
 import { FaArrowLeft, FaForward } from 'react-icons/fa'
 import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 function Employment() {
   const router = useRouter()
     const [position, setposition] = useState("")
@@ -11,22 +13,31 @@ function Employment() {
     const [present, setpresent] = useState(undefined)
     const [endDate, setendDate] = useState("")
     const [description, setdescription] = useState("")
+    const [employments, setemployments] = useState([])
 
 useEffect(()=>{
-    if(!localStorage.profile){
+    if(!localStorage.profileBio){
         router.push('/build-cv/section/profile')
     }
 }, [])
+
+// useEffect(()=>{
+  //   if(localStorage.employment){
+  //     setemployments(JSON.parse(localStorage.getItem('employment')))
+  //    }
+  // }, [])
     const submit=()=>{
-        let employmentDeatil;
+        let employmentDetail;
         if(present){
-            employmentDeatil = {position, employer, city, startDate, present, description}
+            employmentDetail = {position, employer, city, startDate, present, description}
         }
         else{
-            employmentDeatil = {position, employer, city, startDate, endDate, description}
+            employmentDetail = {position, employer, city, startDate, endDate, description}
         }
 
-        localStorage.setItem("employment", JSON.stringify(employmentDeatil))
+        let newEmployment = [...employments, employmentDetail]
+        setemployments(()=>{return newEmployment})
+        localStorage.setItem("employment", JSON.stringify(employments))
         setposition("")
         setemployer("")
         setcity('')
@@ -34,8 +45,7 @@ useEffect(()=>{
         setpresent(undefined)
         setendDate('')
         setdescription('')
-    router.push("/build-cv/section/skills");
-
+        toast.success('Employment added successfully, add another one or click next to continue')
     }
   return (
     <>
@@ -55,7 +65,6 @@ useEffect(()=>{
                   <input
                     type="text"
                     className="form-control bg-light py-2"
-                    placeholder="Enter your employment"
                     onChange={(e) => setposition(e.target.value)}
                     value={position}
                   />
@@ -66,11 +75,10 @@ useEffect(()=>{
             <div className="form row">
               <div className="col-sm-6 my-2">
                 <div className="form-group">
-                  <label htmlFor="">Employer</label>
+                  <label htmlFor="">Organization</label>
                   <input
                     type="text"
                     className="form-control bg-light py-2"
-                    placeholder="Employer"
                     onChange={(e) => setemployer(e.target.value)}
                     value={employer}
                   />
@@ -162,8 +170,11 @@ useEffect(()=>{
                 ></textarea>
               </div>
             </div>
+            <button className="btn bg-color my-2 float-end" onClick={submit}>
+            Done
+          </button>
           </div>
-        <div className="button my-2 d-flex justify-content-between">
+        <div className="button my-2 d-flex justify-content-between card-footer">
           {/* <button className="btn rounded-pill px-3 text-color" style={{border: '1px solid navy'}} onClick={()=>addNewEdu(numEdu.length)}>Add <FaPlus /></button> */}
           <button
             className="btn rounded-pill btn-lg btn-danger"
@@ -171,12 +182,13 @@ useEffect(()=>{
           >
             <FaArrowLeft /> back
           </button>
-          <button className="btn bg-color" onClick={submit}>
+          <button className="btn btn-success" onClick={()=>navigateForward(router.push('/build-cv/section/skill'))}>
             Done | Next <FaForward size="3vh" />{" "}
           </button>
         </div>
       
       </div>
+      <ToastContainer />
     </>
   )
 }

@@ -21,13 +21,13 @@ function language() {
         draggable: true,
         theme: "colored",
       };
-      if (langugageName != "") {
+      if (languageName != "") {
         localStorage.setItem("langugage", JSON.stringify(languageDetail));
         setlanguageName("");
         setlanguageRange("");
         router.push("/myCV");
       } else {
-        toast.error("Please enter your skill before proceeding", toastOption);
+        toast.error("Please enter your language before proceeding", toastOption);
       }
 
     }
@@ -68,13 +68,13 @@ function language() {
             </div>
           </div>
 
-          <div className="button my-2" onClick={submit}>
-            <button className="btn bg-color float-end">
+          <div className="button my-2" >
+            <button className="btn bg-color float-end" onClick={submit}>
               <FaCheck /> Done
             </button>
           </div>
-          <div className="button my-2" onClick={submit}>
-            <button className="btn btn-danger">
+          <div className="button my-2">
+            <button className="btn btn-danger" onClick={()=>navigateBack(router.push('/build-cv/section/skill'))}>
               <FaBackward /> Back
             </button>
           </div>

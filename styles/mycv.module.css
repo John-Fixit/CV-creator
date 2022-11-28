@@ -1,13 +1,12 @@
-.col_sm{
-    height: 100vh;
-}
+
 .cvBody{
     display: flex;
+    min-height: 100vh;
 }
 .sideCl{
-    width: 70vh;
+    width: 37vh;
     background-color: navy;
     color: white;
-    height: 97vh;
+    /* height: 100%; */
     border-right: 4px solid rgb(139, 30, 30);
 }

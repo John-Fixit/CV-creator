@@ -16,6 +16,7 @@ function Form1() {
   const [phoneContact, setphoneContact] = useState("");
   const [email, setemail] = useState("")
   const [notValid, setnotValid] = useState(undefined)
+  const [githubLink, setgithubLink] = useState("")
   
   // const handleChange=(e)=>{
   //       let fileSelected = e.target.files[0]
@@ -23,7 +24,7 @@ function Form1() {
   //     }
   const nextOpt =()=>{
 
-   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: ""};
+   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: "", githubLink};
    if(email == ""){
       setnotValid(true)
    }
@@ -51,10 +52,10 @@ const navigateBack =()=>{
         <div className="form">
           <div className="profile_imageSetUp p-3">
               <div className="row shadow-sm">
-                <div className="col-sm-5 align-items-center text-center mx-auto">
+                <div className="col-md-5 align-items-center text-center mx-auto">
                     <Image src="/user.jpg" alt="" width="300" height="300" className="align-center "/>
                 </div>
-                <div className="col-sm-5">
+                <div className="col-md-7">
                   <h5>Add a photo to your CV</h5>
                   <p>Supported file formats are .jpg, .gif and .png. The size limit is set at 10 MB.</p>
                   <label htmlFor="nFile" >
@@ -97,15 +98,15 @@ const navigateBack =()=>{
           <div className="row my-2">
             <div className="col-sm-12">
               <div className="form-block">
-                <label htmlFor="">STREET ADDRESS</label>
+                <label htmlFor="">ADDRESS</label>
                 <div className="form-floating rounded-0">
                   <input
                     type="text"
-                    placeholder="e.g John"
+                    placeholder="address"
                     className="form-control"
                     onChange={(e)=>setstrAddress(e.target.value)}
                   />
-                  <label htmlFor="">street address</label>
+                  <label htmlFor="">address</label>
                 </div>
               </div>
             </div>
@@ -171,6 +172,16 @@ const navigateBack =()=>{
                 <span className="text-danger">{notValid&&'Email is required before proceeding'}</span>
               </div>
             </div>
+          </div>
+          <div className="col-sm-12">
+          <div className="form-block">
+                <label htmlFor="">Github Repo Link</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    onChange={(e)=>setgithubLink(e.target.value)}
+                  />
+                </div>
           </div>
           
         </div>

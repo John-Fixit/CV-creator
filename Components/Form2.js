@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "../styles/experience.module.css";
 import { FaForward, FaPlus, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 function Form2() {
   const router = useRouter();
   const [education, seteducation] = useState("");
   const [school, setschool] = useState("");
-  const [city, setcity] = useState("");
+  const [address, setaddress] = useState("");
   // const [startMonth, setstartMonth] = useState("")
   // const [startYear, setstartYear] = useState("")
   // const [endMonth, setendMonth] = useState("")
@@ -15,13 +17,14 @@ function Form2() {
   const [endDate, setendDate] = useState("");
   const [present, setpresent] = useState(undefined);
   const [description, setdescription] = useState("");
-  const [numEdu, setnumEdu] = useState([1]);
+  const [educations, seteducations] = useState([])
 
   useEffect(() => {
     if (!localStorage.personalInfo) {
       router.push("/build-cv/section/personal_info");
     }
   }, []);
+
   const months = [
     { name: "January", id: "1" },
     { name: "February", id: "2" },
@@ -37,26 +40,26 @@ function Form2() {
     { name: "December", id: "12" },
   ];
 
-  const addNewEdu = (params) => {
-    setnumEdu((current) => [...current, params]);
-  };
-
   const subEduDetail = () => {
     let eduDetail;
     if (present) {
-      eduDetail = { education, school, city, startDate, present, description };
+      eduDetail = { education, school, address, startDate, present, description };
     } else {
-      eduDetail = { education, school, city, startDate, endDate, description };
+      eduDetail = { education, school, address, startDate, endDate, description };
     }
-    localStorage.setItem("eduDetail", JSON.stringify(eduDetail));
+
+    let newEducation = [...educations, eduDetail]
+    seteducations(newEducation)
+    localStorage.setItem("education", JSON.stringify(educations));
     seteducation("");
     setdescription("");
     setschool("");
-    setcity("");
+    setaddress("");
     setstartDate("");
     setendDate("");
-    setpresent(undefined);
-    router.push("/build-cv/section/profile");
+    setpresent(false);
+
+    toast.success('Education added successfully, add another one? or click on Next to continue')
   };
 
   return (
@@ -68,17 +71,15 @@ function Form2() {
           <hr />
         </h2>
         {/* first form column */}
-        {numEdu.map((eduPosition) => (
           <div>
             <div className="form row my-2">
-              <h5 className="text-color">Education Detail {eduPosition}</h5>
+              <h5 className="text-color">Education Detail</h5>
               <div className="col-sm-12 my-2">
                 <div className="form-group">
                   <label htmlFor="">Education</label>
                   <input
                     type="text"
                     className="form-control bg-light py-2"
-                    placeholder="Enter your education"
                     onChange={(e) => seteducation(e.target.value)}
                     value={education}
                   />
@@ -101,13 +102,13 @@ function Form2() {
               </div>
               <div className="col-sm-6 my-2">
                 <div className="form-group">
-                  <label htmlFor="">City</label>
+                  <label htmlFor="">address</label>
                   <input
                     type="text"
                     className="form-control bg-light py-2"
-                    placeholder="City"
-                    onChange={(e) => setcity(e.target.value)}
-                    value={city}
+                    placeholder="address"
+                    onChange={(e) => setaddress(e.target.value)}
+                    value={address}
                   />
                 </div>
               </div>
@@ -185,8 +186,10 @@ function Form2() {
                 ></textarea>
               </div>
             </div>
+            <button className="btn bg-color my-2 float-end" onClick={subEduDetail}>
+            Done
+          </button>
           </div>
-        ))}
         <div className="button my-2 d-flex justify-content-between">
           {/* <button className="btn rounded-pill px-3 text-color" style={{border: '1px solid navy'}} onClick={()=>addNewEdu(numEdu.length)}>Add <FaPlus /></button> */}
           <button
@@ -195,10 +198,11 @@ function Form2() {
           >
             <FaArrowLeft /> back
           </button>
-          <button className="btn bg-color" onClick={subEduDetail}>
-            Done | Next <FaForward size="3vh" />{" "}
+          <button className="btn bg-color" onClick={()=>navigateForward(router.push('/build-cv/section/profile'))}>
+            Next <FaForward size="3vh"/>
           </button>
         </div>
+        <ToastContainer />
         {/* <div className="d-flex justify-content-between my-4">
               <button
                 className="btn rounded-pill btn-lg btn-danger"

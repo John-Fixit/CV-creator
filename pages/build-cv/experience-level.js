@@ -7,11 +7,9 @@ function ExperienceLevel() {
   const [text, settext] = useState("")
   const getInfo = (params) => {
     if(params <2){
-
+        alert('you are welcome to world of Techies!')
     }
-    else{
       router.push('/build-cv/select-cv')
-    }
   };
   return (
     <>

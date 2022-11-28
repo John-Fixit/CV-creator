@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import style from "/styles/experience.module.css";
-import { FaBackward, FaCheck } from "react-icons/fa";
+import { FaBackward, FaCheck, FaForward } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 function Skill() {
   const router = useRouter();
+  const [skills, setskills] = useState([])
   const [skillName, setskillName] = useState("");
-  const [skillRange, setskillRange] = useState("0");
+  const [skillRange, setskillRange] = useState('0');
 
   useEffect(()=>{
       if(!localStorage.employment){
           router.push('/build-cv/section/employment')
       }
   }, [])
+
+  // useEffect(()=>{
+  //   if(localStorage.skill){
+  //     setskills(JSON.parse(localStorage.getItem('skill')))
+  //    }
+  // }, [])
   const submit = () => {
     let skillDetail = { skillName, skillRange };
     const toastOption = {
@@ -23,15 +30,19 @@ function Skill() {
       draggable: true,
       theme: "colored",
     };
+
     if (skillName != "") {
-      localStorage.setItem("skill", JSON.stringify(skillDetail));
+      let newSkill = [...skills, skillDetail]
+      console.log(newSkill);  
+      setskills(()=>{return newSkill })
+        localStorage.setItem("skill", JSON.stringify(skills));
+
       setskillName("");
-      setskillRange("");
-      router.push("/build-cv/section/language");
+      setskillRange("0");
+      toast.success('skill added successfully, add another one? if yes continue adding, else click on NEXT')
     } else {
-      toast.error("Please enter your skill before proceeding", toastOption);
+      return toast.error("Please enter your skill before proceeding", toastOption);
     }
-    console.log(skillRange);
   };
 
   return (
@@ -57,7 +68,7 @@ function Skill() {
               <label htmlFor="" className="form-label">
                 Level
               </label>
-              <div className="col-8">
+              <div className="col-sm-8">
                 <input
                   type="range"
                   className="form-range py-0"
@@ -65,20 +76,20 @@ function Skill() {
                   value={skillRange}
                 />
               </div>
-              <div className="col-4">
-                <label htmlFor="">Make a choice</label>
-              </div>
             </div>
           </div>
 
-          <div className="button my-2" onClick={submit}>
+          <div className="button" onClick={submit}>
             <button className="btn bg-color float-end">
-              <FaCheck /> Done
+              <FaCheck /> Add
             </button>
           </div>
-          <div className="button my-2" onClick={submit}>
-            <button className="btn btn-danger">
+          <div className="button mt-4 card-footer d-flex justify-content-between">
+            <button className="btn btn-danger" onClick={()=>navigateBack(router.push('/build-cv/section/employment'))}>
               <FaBackward /> Back
+            </button>
+            <button className="btn btn-success" onClick={()=>navigateForward(router.push('/build-cv/section/language'))}>
+              <FaForward /> Next
             </button>
           </div>
         </div>
