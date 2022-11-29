@@ -47,6 +47,14 @@ useEffect(()=>{
         setdescription('')
         toast.success('Employment added successfully, add another one or click next to continue')
     }
+
+
+    const navigateForward =()=>{
+      router.push('/build-cv/section/skill')
+    }
+    const navigateBack =()=>{
+      router.back()
+    }
   return (
     <>
         <div className={`${styles.experience} container px-3 border-0`}>
@@ -127,7 +135,7 @@ useEffect(()=>{
                   onChange={(e) => setpresent(e.target.checked)}
                   value={present}
                 />
-                <label for="">Present</label>
+                <label htmlFor="">Present</label>
               </div>
               <div className="col-sm-5 my-2">
                 <div className="form-group">
@@ -178,12 +186,12 @@ useEffect(()=>{
           {/* <button className="btn rounded-pill px-3 text-color" style={{border: '1px solid navy'}} onClick={()=>addNewEdu(numEdu.length)}>Add <FaPlus /></button> */}
           <button
             className="btn rounded-pill btn-lg btn-danger"
-            onClick={() => navigateBack(router.back())}
+            onClick={navigateBack}
           >
             <FaArrowLeft /> back
           </button>
-          <button className="btn btn-success" onClick={()=>navigateForward(router.push('/build-cv/section/skill'))}>
-            Done | Next <FaForward size="3vh" />{" "}
+          <button className="btn btn-success" onClick={navigateForward}>
+            Next <FaForward size="3vh" />{" "}
           </button>
         </div>
       

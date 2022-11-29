@@ -3,10 +3,8 @@ import styles from "../styles/experience.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
-// import useReactToPrint from "react-to-print"
 
 function Form1() {
-  const componentRef = useRef()
   const router = useRouter()
   const [firstName, setfirstName] = useState("");
   const [surname, setsurname] = useState("");
@@ -17,14 +15,36 @@ function Form1() {
   const [email, setemail] = useState("")
   const [notValid, setnotValid] = useState(undefined)
   const [githubLink, setgithubLink] = useState("")
+  const [profilePic, setprofilePic] = useState("")
   
-  // const handleChange=(e)=>{
-  //       let fileSelected = e.target.files[0]
-  //       console.log(fileSelected);
-  //     }
+  const handleChange=(e)=>{
+    let fileTypeRequired = [
+      'jpg', 'png', 'jpeg', 'gif'
+    ]
+        let fileSelected = e.target.files[0]
+        let fileType = fileSelected.name.split('.')
+        let fileSize = fileSelected.size
+        fileType = fileType[1]
+       if(fileTypeRequired.includes(fileType)){
+          if(fileSize > 10000000){
+            alert(`the size of image selected is greater than 10mb and can not be uploaded`)
+          }
+          else{
+            let reader = new FileReader();
+            reader.readAsDataURL(fileSelected)
+
+            reader.onload=()=>{
+              setprofilePic(reader.result);
+            }
+          }
+       }
+       else{
+          alert(`oooh sorry, you are uploading ${fileType} image, and it is not allowed. (only allowed extension is: jpg, png, jpeg, gif`)
+       }
+      }
   const nextOpt =()=>{
 
-   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: "", githubLink};
+   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: "", githubLink, profilePic};
    if(email == ""){
       setnotValid(true)
    }
@@ -40,9 +60,6 @@ const navigateBack =()=>{
   router.back();
 }
 
-// const handlePrint= useReactToPrint({
-//   content: ()=>componentRef.content
-// })
   return (
     <>
       <div className={`px-3`}>
@@ -53,14 +70,14 @@ const navigateBack =()=>{
           <div className="profile_imageSetUp p-3">
               <div className="row shadow-sm">
                 <div className="col-md-5 align-items-center text-center mx-auto">
-                    <Image src="/user.jpg" alt="" width="300" height="300" className="align-center "/>
+                    <Image src={profilePic != ""? profilePic : "/user.jpg"} alt="loading" width="300" height="300" className="align-center "/>
                 </div>
                 <div className="col-md-7">
                   <h5>Add a photo to your CV</h5>
                   <p>Supported file formats are .jpg, .gif and .png. The size limit is set at 10 MB.</p>
                   <label htmlFor="nFile" >
                   <p className="btn rounded-pill text-color" style={{border: '1px solid navy'}}>Add Photo</p>
-                  <input type="file" id="nFile" accept=".png, .jpg, .gif" className="d-none"/>
+                  <input type="file" id="nFile" className="d-none" onChange={(e)=>handleChange(e)}/>
                   </label>
                 </div>
               </div>

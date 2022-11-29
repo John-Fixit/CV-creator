@@ -16,6 +16,10 @@ function ProfileNote() {
     setprofile("");
     router.push("/build-cv/section/employment");
   };
+
+  const navigateBack=()=>{
+    router.back()
+  }
   return (
     <>
       <div className={`${styles.experience} container border-0`}>

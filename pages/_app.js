@@ -6,8 +6,7 @@ function MyApp({ Component, pageProps }) {
   if(Component.getLayOut){
     return Component.getLayOut(
       <>  
-  <Component {...pageProps} />
-
+        <Component {...pageProps} />
       </>
     )
   }

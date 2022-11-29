@@ -20,6 +20,7 @@ function MyCv() {
   const [education, seteducation] = useState([]);
   const [skill, setskill] = useState([]);
   const [profile, setprofile] = useState("");
+  const [languages, setlanguages] = useState([])
 
   useEffect(() => {
     if (localStorage.personalInfo) {
@@ -36,6 +37,9 @@ function MyCv() {
     }
     if (localStorage.education) {
       seteducation(JSON.parse(localStorage.education));
+    }
+    if (localStorage.language) {
+      setlanguages(JSON.parse(localStorage.language));
     }
   }, []);
   const contactInfo = [
@@ -55,29 +59,28 @@ function MyCv() {
   })
   return (
     <>
-      <div className={`col-sm-7 mx-auto shadow-sm py-2 ${style.col_sm}`}>
+      <div className={`col-sm-8 mx-auto py-2 ${style.col_sm}`}>
       <button className="btn bg-color float-end" onClick={downloadBtn}><FaDownload /> Download</button>
-        <div className={`${style.cvBody} shadow`} ref={componentRef}>
+        <div className={`${style.cvBody} shadow-sm`} ref={componentRef}>
           <div className={`${style.sideCl} shadow-sm rounded p-2`}>
             <div className={`avatar text-center`}>
               <Image
-                src="/user.jpg"
+                src={personalInfo.profilePic? personalInfo.profilePic : "/user.jpg"}
                 alt=""
                 width="130"
                 height="130"
-                className="rounded-circle"
+                className="rounded-circle border border-3 p-1"
               />
           
             </div>
             <div className={`contact`}>
               <p className={`border-bottom pb-2 opacity-75`}>Contact</p>
               {contactInfo.map((item, index) => (
-                <div className="row" key={index}>
-                  <p className="col-1">{item.icon}</p>
-                  <div className="col-9">
-                    <span>{item.name}</span>
+                <div className="d-flex align-items-center" key={index}>
+                  <p className="">{item.icon}</p>
+                    <p className="px-2" style={{fontSize: '2vh'}}>{item.name}</p>
                   </div>
-                </div>
+                // </div>
               ))}
             </div>
             <div className={`skill`}>
@@ -97,7 +100,7 @@ function MyCv() {
               <p style={{ textAlign: "justify" }}>{profile}</p>
             </div>
 
-            <div className={`employment my-2 h-25`}>
+            <div className={`employment my-2`}>
               <b className="text-danger">Employment</b>
               {employment.map((item) => (
                 <div className={`my-2`}>
@@ -108,7 +111,7 @@ function MyCv() {
                        {item.startDate} - {item.present? "present" : item.endDate}
                       </p>
                     </div>
-                    <div className="col-8">
+                    <div className="col-8 px-3">
                       <b className="text-danger">{item.employer}</b>
                       <p>{item.city}</p>
                     </div>
@@ -130,14 +133,26 @@ function MyCv() {
                        {item.startDate} - {item.present? "present" : item.endDate}
                       </p>
                     </div>
-                    <div className="col-8">
+                    <div className="col-8 px-3">
                     <b className="text-color">{item.education}</b>
-                      <p>{item.city}</p>
+                      <p>{item.school}</p>
+                      <small>{item.address}</small>
                     </div>
                   </div>
-                  {/* <div className=" p-2">
-                    {item.description}
-                  </div> */}
+           
+                </div>
+              ))}
+            </div>
+
+            <div className={`language my-2`}>
+              <b className="text-danger">Language</b>
+              {languages.map((item) => (
+                <div className={`my-2`}>
+                  <ul>
+                    <li>{item.languageName} - <span>{item.languageRange}%</span>
+                    <input type="range" value={item.languageRange} />
+                    </li>
+                  </ul>
                 </div>
               ))}
             </div>

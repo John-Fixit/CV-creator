@@ -45,6 +45,14 @@ function Skill() {
     }
   };
 
+
+  const navigateForward =()=>{
+    router.push('/build-cv/section/language')
+  }
+  const navigateBack =()=>{
+    router.back()
+  }
+
   return (
     <>
       <div className={`${style.experience} container px-3 border-0 `}>
@@ -85,10 +93,10 @@ function Skill() {
             </button>
           </div>
           <div className="button mt-4 card-footer d-flex justify-content-between">
-            <button className="btn btn-danger" onClick={()=>navigateBack(router.push('/build-cv/section/employment'))}>
+            <button className="btn btn-danger" onClick={navigateBack}>
               <FaBackward /> Back
             </button>
-            <button className="btn btn-success" onClick={()=>navigateForward(router.push('/build-cv/section/language'))}>
+            <button className="btn btn-success" onClick={navigateForward}>
               <FaForward /> Next
             </button>
           </div>

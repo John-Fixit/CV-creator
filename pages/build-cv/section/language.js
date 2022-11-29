@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import style from "/styles/experience.module.css";
 import { ToastContainer, toast } from 'react-toastify';
-import { FaBackward, FaCheck } from 'react-icons/fa';
+import { FaBackward, FaCheck, FaForward } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css'
 function language() {
+  const router = useRouter()
     const [languageName, setlanguageName] = useState("")
     const [languageRange, setlanguageRange] = useState("0")
-
+    const [languages, setlanguages] = useState([])
     useEffect(()=>{
         if(!localStorage.employment){
             router.push('/build-cv/section/employment')
+        }
+        if(localStorage.language){
+          setlanguages(JSON.parse(localStorage.language))
         }
     }, [])
     const submit = () => {
@@ -22,14 +27,21 @@ function language() {
         theme: "colored",
       };
       if (languageName != "") {
-        localStorage.setItem("langugage", JSON.stringify(languageDetail));
+        let newLanguage = [...languages, languageDetail]
+        setlanguages(newLanguage)
+        localStorage.setItem("langugage", JSON.stringify(languages));
         setlanguageName("");
-        setlanguageRange("");
-        router.push("/myCV");
+        setlanguageRange("0");
       } else {
         toast.error("Please enter your language before proceeding", toastOption);
       }
+    }
 
+    const navigateForward =()=>{
+      router.push('/myCV')
+    }
+    const navigateBack =()=>{
+      router.back()
     }
   return (
    <>
@@ -73,9 +85,17 @@ function language() {
               <FaCheck /> Done
             </button>
           </div>
-          <div className="button my-2">
-            <button className="btn btn-danger" onClick={()=>navigateBack(router.push('/build-cv/section/skill'))}>
+          {/* <div className="button my-2">
+            <button className="btn btn-danger" onClick={navigateBack}>
               <FaBackward /> Back
+            </button>
+          </div> */}
+          <div className="button mt-4 card-footer d-flex justify-content-between">
+            <button className="btn btn-danger" onClick={navigateBack}>
+              <FaBackward /> Back
+            </button>
+            <button className="btn btn-success" onClick={navigateForward}>
+              <FaForward /> Next
             </button>
           </div>
         </div>

@@ -16,7 +16,6 @@ function Form2() {
   const [startDate, setstartDate] = useState("");
   const [endDate, setendDate] = useState("");
   const [present, setpresent] = useState(undefined);
-  const [description, setdescription] = useState("");
   const [educations, seteducations] = useState([])
 
   useEffect(() => {
@@ -43,16 +42,15 @@ function Form2() {
   const subEduDetail = () => {
     let eduDetail;
     if (present) {
-      eduDetail = { education, school, address, startDate, present, description };
+      eduDetail = { education, school, address, startDate, present };
     } else {
-      eduDetail = { education, school, address, startDate, endDate, description };
+      eduDetail = { education, school, address, startDate, endDate};
     }
 
     let newEducation = [...educations, eduDetail]
     seteducations(newEducation)
     localStorage.setItem("education", JSON.stringify(educations));
     seteducation("");
-    setdescription("");
     setschool("");
     setaddress("");
     setstartDate("");
@@ -61,6 +59,14 @@ function Form2() {
 
     toast.success('Education added successfully, add another one? or click on Next to continue')
   };
+
+  const navigateForward=()=>{
+    router.push('/build-cv/section/profile')
+  }
+
+  const navigateBack=()=>{
+    router.back()
+  }
 
   return (
     <>
@@ -143,7 +149,7 @@ function Form2() {
                   onChange={(e) => setpresent(e.target.checked)}
                   value={present}
                 />
-                <label for="">Present</label>
+                <label htmlFor="">Present</label>
               </div>
               <div className="col-sm-5 my-2">
                 <div className="form-group">
@@ -174,49 +180,24 @@ function Form2() {
               </div>
             </div>
             {/* third form column */}
-            <div className="form">
-              <div className="col-sm-12">
-                <textarea
-                  rows="10"
-                  cols="30"
-                  placeholder="Description Here..."
-                  className="form-control"
-                  onChange={(e) => setdescription(e.target.value)}
-                  value={description}
-                ></textarea>
-              </div>
-            </div>
+            
             <button className="btn bg-color my-2 float-end" onClick={subEduDetail}>
             Done
           </button>
           </div>
         <div className="button my-2 d-flex justify-content-between">
-          {/* <button className="btn rounded-pill px-3 text-color" style={{border: '1px solid navy'}} onClick={()=>addNewEdu(numEdu.length)}>Add <FaPlus /></button> */}
           <button
             className="btn rounded-pill btn-lg btn-danger"
-            onClick={() => navigateBack(router.back())}
+            onClick={navigateBack}
           >
             <FaArrowLeft /> back
           </button>
-          <button className="btn bg-color" onClick={()=>navigateForward(router.push('/build-cv/section/profile'))}>
+          <button className="btn bg-color" onClick={navigateForward}>
             Next <FaForward size="3vh"/>
           </button>
         </div>
         <ToastContainer />
-        {/* <div className="d-flex justify-content-between my-4">
-              <button
-                className="btn rounded-pill btn-lg btn-danger"
-                onClick={navigateBack}
-              >
-                <FaArrowLeft /> back
-              </button>
-              <button
-                className="btn btn-lg bg-color"
-                onClick={nextOpt}
-              >
-                <FaArrowRight/> Next
-              </button>
-            </div> */}
+        
       </div>
     </>
   );
