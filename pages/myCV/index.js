@@ -80,7 +80,7 @@ function MyCv() {
                   <p className="">{item.icon}</p>
                     <p className="px-2" style={{fontSize: '2vh'}}>{item.name}</p>
                   </div>
-                // </div>
+
               ))}
             </div>
             <div className={`skill`}>
