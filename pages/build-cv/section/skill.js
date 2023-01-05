@@ -4,23 +4,24 @@ import { FaBackward, FaCheck, FaForward } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import axios from "axios";
 function Skill() {
   const router = useRouter();
   const [skills, setskills] = useState([])
   const [skillName, setskillName] = useState("");
   const [skillRange, setskillRange] = useState('0');
-
+const [userUniqueId, setuserUniqueId] = useState("")
   useEffect(()=>{
       if(!localStorage.employment){
           router.push('/build-cv/section/employment')
       }
   }, [])
+  useEffect(()=>{
+      if(localStorage.userUniqueId){
+          setuserUniqueId(JSON.parse(localStorage.userUniqueId))
+      }
+  }, [])
 
-  // useEffect(()=>{
-  //   if(localStorage.skill){
-  //     setskills(JSON.parse(localStorage.getItem('skill')))
-  //    }
-  // }, [])
   const submit = () => {
     let skillDetail = { skillName, skillRange };
     const toastOption = {
@@ -32,14 +33,24 @@ function Skill() {
     };
 
     if (skillName != "") {
-      let newSkill = [...skills, skillDetail]
-      console.log(newSkill);  
-      setskills(()=>{return newSkill })
-        localStorage.setItem("skill", JSON.stringify(skills));
-
-      setskillName("");
-      setskillRange("0");
-      toast.success('skill added successfully, add another one? if yes continue adding, else click on NEXT')
+      axios.post("/api/addSkill", {userUniqueId, skillDetail}).then((res)=>{
+        console.log(res.data);
+        if(res.data.status){
+          let newSkill = [...skills, skillDetail]
+          console.log(newSkill);  
+          setskills(()=>{return newSkill })
+            localStorage.setItem("skill", JSON.stringify(skills));
+    
+          setskillName("");
+          setskillRange("0");
+          toast.success('skill added successfully, add another one? if yes continue adding, else click on NEXT')
+        }
+        else{
+          toast.error(res.data.message);
+        }
+      }).catch((err)=>{
+        toast.error(err.message)
+      })
     } else {
       return toast.error("Please enter your skill before proceeding", toastOption);
     }

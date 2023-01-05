@@ -1,5 +1,6 @@
+import connection from "../../Database/Connect";
 import { userModel } from "../../Database/Schema";
-
+connection()
 export default async function handler(req, res, next) {
   if (req.method === "POST") {
     const { userUniqueId, employmentDetail } = req.body;

@@ -10,8 +10,8 @@ function language() {
     const [languageRange, setlanguageRange] = useState("0")
     const [languages, setlanguages] = useState([])
     useEffect(()=>{
-        if(!localStorage.employment){
-            router.push('/build-cv/section/employment')
+        if(!localStorage.skill){
+            router.push('/build-cv/section/skill')
         }
         if(localStorage.language){
           setlanguages(JSON.parse(localStorage.language))
@@ -46,6 +46,7 @@ function language() {
   return (
    <>
     <div className={`${style.experience} container px-3 border-0 `}>
+      <div >
         <h2 className="text-end">
           <span className="text-danger">Lang</span>
           <span className="text-color">uage</span>
@@ -85,11 +86,7 @@ function language() {
               <FaCheck /> Done
             </button>
           </div>
-          {/* <div className="button my-2">
-            <button className="btn btn-danger" onClick={navigateBack}>
-              <FaBackward /> Back
-            </button>
-          </div> */}
+     
           <div className="button mt-4 card-footer d-flex justify-content-between">
             <button className="btn btn-danger" onClick={navigateBack}>
               <FaBackward /> Back
@@ -100,6 +97,7 @@ function language() {
           </div>
         </div>
         <ToastContainer />
+      </div>
       </div>
    </>
   )
