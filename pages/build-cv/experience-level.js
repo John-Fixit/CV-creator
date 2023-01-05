@@ -12,8 +12,8 @@ function ExperienceLevel() {
   };
   return (
     <>
-      <div className="container text-center">
         <div className={style.experience}>
+      <div className="container text-center">
           <div>
             <h4 className="">How long have you been working?</h4>
             <p className="fs-5">

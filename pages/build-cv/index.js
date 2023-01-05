@@ -6,8 +6,6 @@ function Index() {
         <div className="container">
                 <div className="row align-items-center">
                     <div className='col-sm-6'>
-
-
                     </div>
                     <div className='col-sm-6 align-items-center border'>
                         <p className='fs-2'>Just Three Simple Steps</p>

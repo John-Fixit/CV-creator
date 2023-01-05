@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar'
 function MyApp({ Component, pageProps }) {
   if(Component.getLayOut){
     return Component.getLayOut(
-      <>  
+      <>
         <Component {...pageProps} />
       </>
     )

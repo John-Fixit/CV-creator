@@ -3,7 +3,9 @@ import styles from "../styles/experience.module.css";
 import { FaForward, FaPlus, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
+import styled from "@emotion/styled";
+import axios from "axios";
 function Form2() {
   const router = useRouter();
   const [education, seteducation] = useState("");
@@ -16,7 +18,7 @@ function Form2() {
   const [startDate, setstartDate] = useState("");
   const [endDate, setendDate] = useState("");
   const [present, setpresent] = useState(undefined);
-  const [educations, seteducations] = useState([])
+  const [educations, seteducations] = useState([]);
 
   useEffect(() => {
     if (!localStorage.personalInfo) {
@@ -44,11 +46,14 @@ function Form2() {
     if (present) {
       eduDetail = { education, school, address, startDate, present };
     } else {
-      eduDetail = { education, school, address, startDate, endDate};
+      eduDetail = { education, school, address, startDate, endDate };
     }
 
-    let newEducation = [...educations, eduDetail]
-    seteducations(newEducation)
+    // axios.post()
+
+    let newEducation = [...educations, eduDetail];
+    seteducations(newEducation);
+    //setting into database here
     localStorage.setItem("education", JSON.stringify(educations));
     seteducation("");
     setschool("");
@@ -57,27 +62,30 @@ function Form2() {
     setendDate("");
     setpresent(false);
 
-    toast.success('Education added successfully, add another one? or click on Next to continue')
+    toast.success(
+      "Education added successfully, add another one? or click on Next to continue"
+    );
   };
 
-  const navigateForward=()=>{
-    router.push('/build-cv/section/profile')
-  }
+  const navigateForward = () => {
+    router.push("/build-cv/section/profile");
+  };
 
-  const navigateBack=()=>{
-    router.back()
-  }
+  const navigateBack = () => {
+    router.back();
+  };
 
   return (
     <>
-      <div className={`${styles.experience} container px-3 border-0`}>
-        <h2 className="text-end">
-          <span className="text-danger">Educ</span>
-          <span className="text-color">ation</span>
-          <hr />
-        </h2>
-        {/* first form column */}
-          <div>
+      <div className={`${styles.experience} containe px-3 border-0`}>
+        <div className="containe">
+          <h2 className="text-end">
+            <span className="text-danger">Educ</span>
+            <span className="text-color">ation</span>
+            <hr />
+          </h2>
+          {/* first form column */}
+          <div className="">
             <div className="form row my-2">
               <h5 className="text-color">Education Detail</h5>
               <div className="col-sm-12 my-2">
@@ -180,24 +188,23 @@ function Form2() {
               </div>
             </div>
             {/* third form column */}
-            
-            <button className="btn bg-color my-2 float-end" onClick={subEduDetail}>
-            Done
-          </button>
+            <button className="btn bg-color" onClick={subEduDetail}>
+              Add &#43;
+            </button>
           </div>
-        <div className="button my-2 d-flex justify-content-between">
-          <button
-            className="btn rounded-pill btn-lg btn-danger"
-            onClick={navigateBack}
-          >
-            <FaArrowLeft /> back
-          </button>
-          <button className="btn bg-color" onClick={navigateForward}>
-            Next <FaForward size="3vh"/>
-          </button>
+          <div className="button my-2 d-flex justify-content-between">
+            <button
+              className="btn rounded-pill btn-lg btn-danger"
+              onClick={navigateBack}
+            >
+              <FaArrowLeft /> back
+            </button>
+            <button className="btn bg-color" onClick={navigateForward}>
+              Next <FaForward size="3vh" />
+            </button>
+          </div>
+          <ToastContainer />
         </div>
-        <ToastContainer />
-        
       </div>
     </>
   );

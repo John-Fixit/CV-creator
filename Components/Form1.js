@@ -3,6 +3,9 @@ import styles from "../styles/experience.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Form1() {
   const router = useRouter()
@@ -16,7 +19,7 @@ function Form1() {
   const [notValid, setnotValid] = useState(undefined)
   const [githubLink, setgithubLink] = useState("")
   const [profilePic, setprofilePic] = useState("")
-  
+  const [loading, setloading] = useState("")
   const handleChange=(e)=>{
     let fileTypeRequired = [
       'jpg', 'png', 'jpeg', 'gif'
@@ -43,15 +46,26 @@ function Form1() {
        }
       }
   const nextOpt =()=>{
-
-   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, password: "", githubLink, profilePic};
+   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, githubLink, profilePic};
    if(email == ""){
       setnotValid(true)
    }
    else{
       setnotValid(false)
-     localStorage.setItem('personalInfo', JSON.stringify(userDetail));
-     router.push('/build-cv/section/education');
+      setloading('sendingDetail')
+      axios.post('/api/addNewDetail', userDetail).then((response)=>{
+        setloading("")
+        console.log(response)
+        if(response.data.status){
+           localStorage.setItem('userUniqueId', JSON.stringify(response.data.userUniqueId));
+          //  router.push('/build-cv/user/register');
+        }
+        else{
+          toast.error(response.message);
+        }
+      }).catch((err)=>{
+        toast.error(err)
+      })
    }
 
 }
@@ -213,10 +227,19 @@ const navigateBack =()=>{
                 className="btn btn-lg bg-color"
                 onClick={nextOpt}
               >
-                <FaArrowRight/> Next
+                {
+                  loading == 'sendingDetail'? 
+                  <div className="spinner-border text-light border-1" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  :
+                  <>
+                    <FaArrowRight/> Next
+                  </>
+                }
               </button>
             </div>
-           
+           <ToastContainer />
       </div>
     </>
   );

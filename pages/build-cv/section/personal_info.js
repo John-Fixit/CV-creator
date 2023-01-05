@@ -11,7 +11,6 @@ import Form1 from "../../../Components/form1";
 import { FaArrowLeft } from "react-icons/fa"
 
 function Cnct() {
-
   return (
     <>
       <div className="container">
