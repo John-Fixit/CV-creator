@@ -1,3 +1,6 @@
+import connection from "../../Database/Connect";
+import { userModel } from "../../Database/Schema";
+connection()
 export default function handler(req, res){
     if(req.method==="POST"){
         const {userUniqueId, skillDetail} = req.body;
