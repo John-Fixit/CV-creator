@@ -6,14 +6,14 @@
 import axios from 'axios';
     function Register() {
         const router = useRouter()
-    const [uniqueId, setuniqueId] = useState("")
+    const [userUniqueId, setuserUniqueId] = useState("")
     const [password, setpassword] = useState("")
     const [userDetail, setuserDetail] = useState({})
     const [notValid, setnotValid] = useState(undefined)
     useEffect(()=>{
         if(localStorage.userUniqueId){
            let userUniqueId = JSON.parse(localStorage.getItem("userUniqueId"))
-            setuniqueId(userUniqueId)
+            setuserUniqueId(userUniqueId)
         }
         }, [])
     const submit=()=>{
@@ -22,9 +22,14 @@ import axios from 'axios';
         if(password != ""){
             setnotValid(false)
             axios.post("/api/addPassword", reqDetail).then((res)=>{
-                    console.log(res)
+                   if(res.data.status){
+                    router.push("build-cv/section/education")
+                   }
+                   else{
+                    toast.error(res.data.message);
+                   }
             }).catch((err)=>{
-                toast.error(err)
+                toast.error(err.message)
             })
             // localStorage.setItem("personalInfo", JSON.stringify(userDetail))
             setpassword("");
@@ -42,7 +47,7 @@ import axios from 'axios';
             <div className='form my-2'>
                 <label htmlFor="" className='fw-bold'>Unique Id</label>
                 <div className='form-floating'>
-                    <input type="text" className='form-control' placeholder='Unique Id' value={uniqueId} readOnly/>
+                    <input type="text" className='form-control' placeholder='Unique Id' value={userUniqueId} readOnly/>
                     <label htmFor="">Unique Id</label>
                 </div>
             </div>

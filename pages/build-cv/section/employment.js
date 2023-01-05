@@ -4,6 +4,7 @@ import { FaArrowLeft, FaForward } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios'
 function Employment() {
   const router = useRouter()
     const [position, setposition] = useState("")
@@ -14,18 +15,18 @@ function Employment() {
     const [endDate, setendDate] = useState("")
     const [description, setdescription] = useState("")
     const [employments, setemployments] = useState([])
-
+  const [userUniqueId, setuserUniqueId] = useState("")
 useEffect(()=>{
     if(!localStorage.profileBio){
         router.push('/build-cv/section/profile')
     }
 }, [])
+useEffect(()=>{
+    if(localStorage.userUniqueId){
+        setuserUniqueId(JSON.parse(localStorage.userUniqueId))
+    }
+}, [])
 
-// useEffect(()=>{
-  //   if(localStorage.employment){
-  //     setemployments(JSON.parse(localStorage.getItem('employment')))
-  //    }
-  // }, [])
     const submit=()=>{
         let employmentDetail;
         if(present){
@@ -35,17 +36,27 @@ useEffect(()=>{
             employmentDetail = {position, employer, city, startDate, endDate, description}
         }
 
-        let newEmployment = [...employments, employmentDetail]
-        setemployments(()=>{return newEmployment})
-        localStorage.setItem("employment", JSON.stringify(employments))
-        setposition("")
-        setemployer("")
-        setcity('')
-        setstartDate('')
-        setpresent(undefined)
-        setendDate('')
-        setdescription('')
-        toast.success('Employment added successfully, add another one or click next to continue')
+            let newEmployment = [...employments, employmentDetail]
+        axios.post("/api/addEmployment", {userUniqueId, employmentDetail}).then((res)=>{
+          if(res.data.status){
+            let newEmployment = [...employments, employmentDetail]
+            setemployments(()=>{return newEmployment})
+            localStorage.setItem("employment", JSON.stringify(employments))
+            setposition("")
+            setemployer("")
+            setcity('')
+            setstartDate('')
+            setpresent(undefined)
+            setendDate('')
+            setdescription('')
+            toast.success(res.data.message)
+          }
+          else{
+            toast.error(res.data.message)
+          }
+        }).catch((err)=>{
+          toast.error(err.message)
+        })
     }
 
 
@@ -58,6 +69,7 @@ useEffect(()=>{
   return (
     <>
         <div className={`${styles.experience} container px-3 border-0`}>
+          <div className='container'>
         <h2 className="text-end">
           <span className="text-danger">Employ</span>
           <span className="text-color">ment</span>
@@ -115,16 +127,7 @@ useEffect(()=>{
                         onChange={(e) => setstartDate(e.target.value)}
                         value={startDate}
                       />
-
-                      {/* <select className={`form-control`}>
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select> */}
                     </div>
-                    {/* <div className="section col-6">
-                  <select className="form-control dropdown-toggle">{}</select>
-                </div> */}
                   </div>
                 </div>
               </div>
@@ -147,20 +150,9 @@ useEffect(()=>{
                         className="form-control"
                         onChange={(e) => setendDate(e.target.value)}
                         value={endDate}
-                      />
-                      {/* <select className={`form-control`}>
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select> */}
+               />
                     </div>
-                    {/* <div className="section col-6">
-                  <select className="form-control dropdown-toggle">
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select>
-                </div> */}
+                    
                   </div>
                 </div>
               </div>
@@ -178,12 +170,11 @@ useEffect(()=>{
                 ></textarea>
               </div>
             </div>
-            <button className="btn bg-color my-2 float-end" onClick={submit}>
-            Done
+            <button className="btn bg-color my-2" onClick={submit}>
+            Add &#43;
           </button>
           </div>
         <div className="button my-2 d-flex justify-content-between card-footer">
-          {/* <button className="btn rounded-pill px-3 text-color" style={{border: '1px solid navy'}} onClick={()=>addNewEdu(numEdu.length)}>Add <FaPlus /></button> */}
           <button
             className="btn rounded-pill btn-lg btn-danger"
             onClick={navigateBack}
@@ -194,7 +185,7 @@ useEffect(()=>{
             Next <FaForward size="3vh" />{" "}
           </button>
         </div>
-      
+      </div>
       </div>
       <ToastContainer />
     </>

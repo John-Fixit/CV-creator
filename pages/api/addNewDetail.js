@@ -75,38 +75,37 @@ export default function handler(req, res) {
 }
 
 const exec=(userSchemaDetail, mailMessage, userUniqueId)=>{
-  let message= ""
+  let message
   let status
     const form = new userModel(userSchemaDetail);
-     form.save((err) => {
+    form.save((err) => {
       if (err) {
-      //  return {
-          message = "Network error, please check your connection!"
-          status = false
-        // };
+       return {
+          message: "Network error, please check your connection!",
+          status: false,
+        };
       }
       else {
         transporter.sendMail(mailMessage, (err, result) => {
           if (err) {
-            // return {
-              message = "Registration not complete please check your connection"
-              status = false
-            // };
-          } 
-          else {
-            // return {
-              message = "Details saved successfully, you will recieve an email shortly!"
-              status= true
-              userUniqueId
-            // };
+            return {
+              message: "Registration not complete please check your connection",
+              status: false,
+            };
+          } else {
+            return {
+              message:
+                "Details saved successfully, you will recieve an email shortly!",
+              status: true,
+              userUniqueId,
+            };
           }
         });
       }
-
-    });
+    })
     return {
-      message,
-      status,
+      message: "Details saved successfully",
+      status: true,
       userUniqueId
     }
 }

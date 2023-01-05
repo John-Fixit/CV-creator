@@ -19,10 +19,18 @@ function Form2() {
   const [endDate, setendDate] = useState("");
   const [present, setpresent] = useState(undefined);
   const [educations, seteducations] = useState([]);
-
+  const [userUniqueId, setuserUniqueId] = useState("");
   useEffect(() => {
     if (!localStorage.personalInfo) {
       router.push("/build-cv/section/personal_info");
+    }
+    if (localStorage.userUniqueId) {
+      setuserUniqueId(JSON.parse(localStorage.userUniqueId));
+    }
+  }, []);
+  useEffect(() => {
+    if (localStorage.userUniqueId) {
+      setuserUniqueId(JSON.parse(localStorage.userUniqueId));
     }
   }, []);
 
@@ -49,22 +57,28 @@ function Form2() {
       eduDetail = { education, school, address, startDate, endDate };
     }
 
-    // axios.post()
-
-    let newEducation = [...educations, eduDetail];
-    seteducations(newEducation);
-    //setting into database here
-    localStorage.setItem("education", JSON.stringify(educations));
-    seteducation("");
-    setschool("");
-    setaddress("");
-    setstartDate("");
-    setendDate("");
-    setpresent(false);
-
-    toast.success(
-      "Education added successfully, add another one? or click on Next to continue"
-    );
+    axios
+      .post("/api/addEducation", { eduDetail, userUniqueId })
+      .then((res) => {
+        if (res.data.status) {
+          let newEducation = [...educations, eduDetail];
+          seteducations(newEducation);
+          localStorage.setItem("eduDetail", JSON.stringify(educations));
+          seteducation("");
+          setschool("");
+          setaddress("");
+          setstartDate("");
+          setendDate("");
+          setpresent(undefined);
+          toast.success(res.data.message);
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error(err.message);
+      });
   };
 
   const navigateForward = () => {

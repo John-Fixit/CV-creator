@@ -2,19 +2,37 @@ import React, { useEffect, useState } from "react";
 import { FaForward, FaPencilAlt, FaArrowLeft } from "react-icons/fa";
 import styles from "/styles/experience.module.css";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function ProfileNote() {
   const router = useRouter();
   const [profile, setprofile] = useState("");
+  const [userUniqueId, setuserUniqueId] = useState("")
   useEffect(() => {
     if (!localStorage.eduDetail) {
       router.push("/build-cv/section/education");
     }
   }, []);
+  useEffect(() => {
+    if (localStorage.userUniqueId) {
+        setuserUniqueId(JSON.parse(localStorage.userUniqueId));
+    }
+  }, []);
 
   const nextOpt = () => {
-    localStorage.setItem("profileBio", JSON.stringify(profile));
-    setprofile("");
-    router.push("/build-cv/section/employment");
+    axios.post("/api/addProfile", {profile, userUniqueId}).then((res)=>{
+      if(res.data.status){
+        localStorage.setItem("profileBio", JSON.stringify(profile));
+        setprofile("");
+        router.push("/build-cv/section/employment");
+      }
+      else{
+        toast.error(res.data.message)
+      }
+    }).catch((err)=>{
+      toast.error(err.message)
+    })
   };
 
   const navigateBack=()=>{
@@ -59,6 +77,7 @@ function ProfileNote() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

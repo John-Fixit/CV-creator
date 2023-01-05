@@ -58,13 +58,13 @@ function Form1() {
         console.log(response)
         if(response.data.status){
            localStorage.setItem('userUniqueId', JSON.stringify(response.data.userUniqueId));
-          //  router.push('/build-cv/user/register');
+           router.push('/build-cv/user/register');
         }
         else{
           toast.error(response.message);
         }
       }).catch((err)=>{
-        toast.error(err)
+        toast.error(err.message)
       })
    }
 
