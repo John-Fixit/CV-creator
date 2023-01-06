@@ -43,7 +43,7 @@ const [userUniqueId, setuserUniqueId] = useState("")
     
           setskillName("");
           setskillRange("0");
-          toast.success('skill added successfully, add another one? if yes continue adding, else click on NEXT')
+          toast.success(res.data.message)
         }
         else{
           toast.error(res.data.message);

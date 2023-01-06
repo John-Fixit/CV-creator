@@ -4,11 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import { FaBackward, FaCheck, FaForward } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios';
 function language() {
   const router = useRouter()
     const [languageName, setlanguageName] = useState("")
     const [languageRange, setlanguageRange] = useState("0")
     const [languages, setlanguages] = useState([])
+    const [userUniqueId, setuserUniqueId] = useState("")
     useEffect(()=>{
         if(!localStorage.skill){
             router.push('/build-cv/section/skill')
@@ -17,6 +19,11 @@ function language() {
           setlanguages(JSON.parse(localStorage.language))
         }
     }, [])
+    useEffect(()=>{
+      if(localStorage.userUniqueId){
+          setuserUniqueId(JSON.parse(localStorage.userUniqueId))
+      }
+  }, [])
     const submit = () => {
       let languageDetail = { languageName, languageRange };
       const toastOption = {
@@ -27,11 +34,22 @@ function language() {
         theme: "colored",
       };
       if (languageName != "") {
-        let newLanguage = [...languages, languageDetail]
+        axios.post("/api/addLanguage", {userUniqueId, languageDetail}).then((res)=>{
+          console.log(res.data);
+          if(res.data.status){
+            let newLanguage = [...languages, languageDetail]
         setlanguages(newLanguage)
         localStorage.setItem("langugage", JSON.stringify(languages));
         setlanguageName("");
         setlanguageRange("0");
+            toast.success(res.data.message)
+          }
+          else{
+            toast.error(res.data.message);
+          }
+        }).catch((err)=>{
+          toast.error(err.message)
+        })
       } else {
         toast.error("Please enter your language before proceeding", toastOption);
       }
@@ -45,7 +63,8 @@ function language() {
     }
   return (
    <>
-    <div className={`${style.experience} container px-3 border-0 `}>
+    <div className={`${style.experience} px-3 border-0 `}>
+      <div className=' container'>
       <div >
         <h2 className="text-end">
           <span className="text-danger">Lang</span>
@@ -97,6 +116,7 @@ function language() {
           </div>
         </div>
         <ToastContainer />
+      </div>
       </div>
       </div>
    </>
