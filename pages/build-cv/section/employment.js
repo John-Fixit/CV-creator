@@ -37,7 +37,7 @@ useEffect(()=>{
         }
 
             let newEmployment = [...employments, employmentDetail]
-        axios.post("/api/addEmployment", {userUniqueId, employmentDetail}).then((res)=>{
+        axios.post("/api/addEmployment", {userUniqueId, employmentDetail, verify: "employment"}).then((res)=>{
           if(res.data.status){
             let newEmployment = [...employments, employmentDetail]
             setemployments(()=>{return newEmployment})

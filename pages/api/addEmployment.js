@@ -3,10 +3,10 @@ import { userModel } from "../../Database/Schema";
 connection()
 export default async function handler(req, res, next) {
   if (req.method === "POST") {
-    const { userUniqueId, employmentDetail } = req.body;
+    const { userUniqueId, employmentDetail, verify } = req.body;
     userModel.findOneAndUpdate(
       { userUniqueId },
-      { $push: { employment: employmentDetail } },
+      { $push: { employment: employmentDetail }, verify },
       (err, result) => {
         if (err) {
             console.log(err)

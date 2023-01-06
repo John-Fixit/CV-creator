@@ -21,7 +21,7 @@ function ProfileNote() {
   }, []);
 
   const nextOpt = () => {
-    axios.post("/api/addProfile", {profile, userUniqueId}).then((res)=>{
+    axios.post("/api/addProfile", {profile, userUniqueId, verify: "profile"}).then((res)=>{
       if(res.data.status){
         localStorage.setItem("profileBio", JSON.stringify(profile));
         setprofile("");

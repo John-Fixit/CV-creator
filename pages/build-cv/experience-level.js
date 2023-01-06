@@ -8,7 +8,7 @@ function ExperienceLevel() {
     if(params <2){
         alert('you are welcome to world of Techies!')
     }
-      router.push('/build-cv/select-cv')
+      router.push('/build-cv/section/personal_info')
   };
   return (
     <>

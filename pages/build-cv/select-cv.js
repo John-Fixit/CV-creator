@@ -9,7 +9,7 @@ function SelectCv() {
     const [select, setselect] = useState(1)
     const nextOpt=()=>{
       if(select ==1){
-        router.push('/build-cv/section/personal_info')
+        router.push('/build-cv/experience-level')
       }
       else{
         router.push('/build-cv/user/login')

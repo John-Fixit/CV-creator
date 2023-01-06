@@ -46,7 +46,7 @@ function Form1() {
        }
       }
   const nextOpt =()=>{
-   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, githubLink, profilePic};
+   let userDetail = {firstName, surname, strAddress, cityTown, country, phoneContact, email, githubLink, profilePic, verify: "personal_info"};
    if(email == ""){
       setnotValid(true)
    }

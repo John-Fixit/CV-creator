@@ -1,29 +1,38 @@
 import React, {useEffect, useState} from 'react'
 import styles from "/styles/experience.module.css";
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 function Login() {
     const router = useRouter()
 const [userUniqueId, setuserUniqueId] = useState("")
 const [password, setpassword] = useState("")
-const [userDetail, setuserDetail] = useState({})
+
 const [notValid, setnotValid] = useState(undefined)
-useEffect(()=>{
-    if(localStorage.personalInfo){
-       let user = JSON.parse(localStorage.getItem("personalInfo"))
-        setuserDetail(user)
-    }
-    }, [])
+
 const submit=()=>{
-    userDetail.password = password
-    if(password != ""){
-        localStorage.setItem("personalInfo", JSON.stringify(userDetail))
-        setnotValid(false)
-        setpassword(""); setuserUniqueId("")
+    if(!!password){
+        axios.post("/api/login", {userUniqueId, password}).then((res)=>{
+            
+            if(res.data.status){
+                console.log(res.data)
+                setpassword(""); setuserUniqueId("")
+                setnotValid(false)
+                localStorage.setItem("userUniqueId", JSON.stringify(res.data.data.userUniqueId))
+                router.push(`/build-cv/section/${res.data.data.verify}`)
+            }
+            else{
+                toast.error(res.data.message)
+            }
+        }).catch((err)=>{
+            toast.error(err.message)
+        })
     }
     else{
         setnotValid(true)
     }
-}
+}   
 return (
 <>
     <div className={`col-sm-5 mx-auto shadow-sm p-3 border-0 ${styles.experience}`}>
@@ -33,14 +42,14 @@ return (
         <div className='form my-2'>
             <label htmlFor="" className='fw-bold'>Your Unique Id</label>
             <div className='form-floating'>
-                <input type="email" className='form-control' placeholder='email' />
+                <input type="email" className='form-control' placeholder='email' onChange={(e)=>setuserUniqueId(e.target.value)}/>
                 <label htmFor="">Unique Id</label>
             </div>
         </div>
         <div className='form my-2'>
             <label htmlFor="" className='fw-bold'>Password</label>
             <div className='form-floating'>
-                <input type="password"  className={`form-control ${notValid && "is-invalid border-danger"}`} placeholder='password' onChange={(e)=>setpassword(e.target.value)}/>
+                <input type="password"  className={`form-control ${notValid && "is-invalid border-danger"}`} placeholder='password' onChange={(e)=>setpassword(e.target.value)} value={password}/>
                 <label htmFor="">Password</label>
             </div>
             <span className="text-danger">{notValid&&'Password is required for the secure of your details'}</span>
@@ -49,6 +58,7 @@ return (
     </div>
     </div>
     </div>
+    <ToastContainer />
 </>
 )
 }

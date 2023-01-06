@@ -1,13 +1,15 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import ExperienceLevel from './build-cv/experience-level'
+import SelectCv from './build-cv/select-cv'
 
 function Home() {
 
     
   return (
     <>
-        <ExperienceLevel />
+        {/* <ExperienceLevel /> */}
+        <SelectCv />
       {/* <div className="container">
                 <div className="row align-items-center">
                     <div className='col-sm-6'>

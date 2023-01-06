@@ -58,7 +58,7 @@ function Form2() {
     }
 
     axios
-      .post("/api/addEducation", { eduDetail, userUniqueId })
+      .post("/api/addEducation", { eduDetail, userUniqueId, verify: "education" })
       .then((res) => {
         if (res.data.status) {
           let newEducation = [...educations, eduDetail];

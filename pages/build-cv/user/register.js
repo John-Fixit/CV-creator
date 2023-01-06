@@ -23,7 +23,7 @@ import axios from 'axios';
             setnotValid(false)
             axios.post("/api/addPassword", reqDetail).then((res)=>{
                    if(res.data.status){
-                    router.push("build-cv/section/education")
+                    router.push("/build-cv/section/education")
                    }
                    else{
                     toast.error(res.data.message);

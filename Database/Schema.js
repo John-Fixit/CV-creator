@@ -38,7 +38,8 @@ const userSchema = mongoose.Schema({
     skill: [],
     profile: String,
     certificate: [],
-    userUniqueId: String
+    userUniqueId: String,
+    verify: String
 })
 
 let userModel = mongoose.models.users_tb || mongoose.model("users_tb", userSchema)

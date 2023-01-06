@@ -33,7 +33,7 @@ const [userUniqueId, setuserUniqueId] = useState("")
     };
 
     if (skillName != "") {
-      axios.post("/api/addSkill", {userUniqueId, skillDetail}).then((res)=>{
+      axios.post("/api/addSkill", {userUniqueId, skillDetail, verify: "skill"}).then((res)=>{
         console.log(res.data);
         if(res.data.status){
           let newSkill = [...skills, skillDetail]

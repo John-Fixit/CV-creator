@@ -3,13 +3,12 @@ import { userModel } from "../../Database/Schema";
 connection()
 export default function handler(req, res){
     if(req.method==="POST"){
-        const {userUniqueId, languageDetail} = req.body;
+        const {userUniqueId, languageDetail, verify} = req.body;
         userModel.findOneAndUpdate(
             { userUniqueId },
-            { $push: { skill: languageDetail } },
+            { $push: { skill: languageDetail }, verify },
             (err, result) => {
               if (err) {
-                  console.log(err)
                 res.send({
                   message:
                     "Unexpected error, please check your connection",

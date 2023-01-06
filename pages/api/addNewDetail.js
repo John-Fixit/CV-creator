@@ -44,6 +44,7 @@ export default function handler(req, res) {
       profile: "",
       certifcate: [],
       userUniqueId,
+      verify: req.body.verify
     };
     let mailMessage = {
       from: "CreateMyCv",
@@ -75,6 +76,7 @@ export default function handler(req, res) {
 }
 
 const exec=(userSchemaDetail, mailMessage, userUniqueId)=>{
+  console.log(userSchemaDetail)
   let message
   let status
     const form = new userModel(userSchemaDetail);
