@@ -5,6 +5,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Script from "next/script";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -51,34 +52,37 @@ function Navbar() {
   };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
+    // let newSkipped = skipped;
+    // if (isStepSkipped(activeStep)) {
+    //   console.log(activeStep)
+    //   newSkipped = new Set(newSkipped.values());
+    //   newSkipped.delete(activeStep);
+    // }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    // setActiveStep(4);
+    console.log(activeStep)
+    // setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
+  // const handleSkip = () => {
+  //   if (!isStepOptional(activeStep)) {
+  //     // You probably want to guard against something like this,
+  //     // it should never occur unless someone's actively trying to break something.
+  //     throw new Error("You can't skip a step that isn't optional.");
+  //   }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   setSkipped((prevSkipped) => {
+  //     const newSkipped = new Set(prevSkipped.values());
+  //     newSkipped.add(activeStep);
+  //     return newSkipped;
+  //   });
+  // };
 
   const handleReset = () => {
     setActiveStep(0);
@@ -88,6 +92,7 @@ function Navbar() {
 
   return (
     <>
+    
       <nav className="navbar navbar-expand-lg navbar-light fixed-to bg-light">
         <div className="container">
           <a
@@ -113,16 +118,6 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              {/* <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
-              </li> */}
               <li>
                 <div className={classes.root}>
                   <Stepper activeStep={activeStep}>

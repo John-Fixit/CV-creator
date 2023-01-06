@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import ExperienceLevel from './build-cv/experience-level'
