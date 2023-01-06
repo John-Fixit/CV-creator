@@ -3,6 +3,8 @@ import style from "/styles/mycv.module.css";
 import Image from "next/image";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import {
   FaDownload,
   FaEnvelope,
@@ -12,9 +14,12 @@ import {
   FaPhoneAlt,
   FaUserAlt,
 } from "react-icons/fa";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 function MyCv() {
   const componentRef = useRef()
+  const router = useRouter()
   const [personalInfo, setpersonalInfo] = useState({});
   const [employment, setemployment] = useState([]);
   const [education, seteducation] = useState([]);
@@ -42,6 +47,15 @@ function MyCv() {
       setlanguages(JSON.parse(localStorage.language));
     }
   }, []);
+  useEffect(()=>{
+    if(router.query.userId){
+      axios.get(`/api/getUserData/${router.query.userId}`).then((res)=>{
+        if(res.data.status){
+
+        }
+      })
+    }
+  }, [router.query.user])
   const contactInfo = [
     {
       icon: <FaUserAlt />,
@@ -168,3 +182,7 @@ export default MyCv;
 MyCv.getLayOut = (page) => {
   return <>{page}</>;
 };
+
+
+
+

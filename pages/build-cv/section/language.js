@@ -56,7 +56,7 @@ function language() {
     }
 
     const navigateForward =()=>{
-      router.push('/myCV')
+      router.push(`/myCV/${userUniqueId}`)
     }
     const navigateBack =()=>{
       router.back()
@@ -102,7 +102,7 @@ function language() {
 
           <div className="button my-2" >
             <button className="btn bg-color float-end" onClick={submit}>
-              <FaCheck /> Done
+              &#43; Add
             </button>
           </div>
      
@@ -111,7 +111,7 @@ function language() {
               <FaBackward /> Back
             </button>
             <button className="btn btn-success" onClick={navigateForward}>
-              <FaForward /> Next
+               Finished
             </button>
           </div>
         </div>
