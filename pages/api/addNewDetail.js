@@ -65,7 +65,6 @@ export default function handler(req, res) {
         .then((result) => {
           userSchemaDetail.profilePic = result.secure_url;
           res.send(exec(userSchemaDetail, mailMessage, userUniqueId))
-          console.log(exec(userSchemaDetail, mailMessage, userUniqueId))
         });
     }
     else{
@@ -75,39 +74,42 @@ export default function handler(req, res) {
   }
 }
 
-const exec=(userSchemaDetail, mailMessage, userUniqueId)=>{
-  console.log(userSchemaDetail)
-  let message
-  let status
-    const form = new userModel(userSchemaDetail);
-    form.save((err) => {
+const exec= async(userSchemaDetail, mailMessage, userUniqueId)=>{
+ 
+    const form = await new userModel(userSchemaDetail);
+  const saving = await form.save((err) => {
       if (err) {
-       return {
-          message: "Network error, please check your connection!",
-          status: false,
-        };
+        return{
+          message:"Network error, please check your connection!",
+          status:false
+        }
       }
       else {
         transporter.sendMail(mailMessage, (err, result) => {
           if (err) {
-            return {
-              message: "Registration not complete please check your connection",
-              status: false,
-            };
+            console.log(err)
+            return{
+              message:"Registration not complete please check your connection",
+              status:false
+            }
+           
           } else {
-            return {
-              message:
-                "Details saved successfully, you will recieve an email shortly!",
-              status: true,
-              userUniqueId,
-            };
+            return{
+              message:"Details saved successfully, you will recieve an email shortly!",
+              status:false
+            }
           }
         });
       }
     })
-    return {
-      message: "Details saved successfully",
-      status: true,
-      userUniqueId
+    const resp = await saving
+    if(resp){
+      console.log(resp)
     }
+    // return resp
+    // return {
+    //   message,
+    //   status,
+    //   userUniqueId
+    // }
 }
