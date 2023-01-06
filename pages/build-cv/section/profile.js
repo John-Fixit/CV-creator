@@ -21,18 +21,23 @@ function ProfileNote() {
   }, []);
 
   const nextOpt = () => {
-    axios.post("/api/addProfile", {profile, userUniqueId, verify: "profile"}).then((res)=>{
-      if(res.data.status){
-        localStorage.setItem("profileBio", JSON.stringify(profile));
-        setprofile("");
-        router.push("/build-cv/section/employment");
-      }
-      else{
-        toast.error(res.data.message)
-      }
-    }).catch((err)=>{
-      toast.error(err.message)
-    })
+    if(!!profile){
+      axios.post("/api/addProfile", {profile, userUniqueId, verify: "profile"}).then((res)=>{
+        if(res.data.status){
+          localStorage.setItem("profileBio", JSON.stringify(profile));
+          setprofile("");
+          router.push("/build-cv/section/employment");
+        }
+        else{
+          toast.error(res.data.message)
+        }
+      }).catch((err)=>{
+        toast.error(err.message)
+      })
+    }
+    else{
+      toast.error("Please Input in your profile, it is required before proceeding")
+    }
   };
 
   const navigateBack=()=>{
@@ -64,12 +69,12 @@ function ProfileNote() {
 
               <div className="d-flex justify-content-between my-4">
                 <button
-                  className="btn rounded-pill btn-lg btn-danger"
+                  className="btn rounded-pill btn-md btn-danger"
                   onClick={() => navigateBack(router.back())}
                 >
                   <FaArrowLeft /> back
                 </button>
-                <button className="btn btn-lg bg-color" onClick={nextOpt}>
+                <button className="btn btn-md bg-color rounded-pill" onClick={nextOpt}>
                   <FaForward /> Next
                 </button>
               </div>

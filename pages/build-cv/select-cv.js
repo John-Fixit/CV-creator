@@ -6,12 +6,12 @@ import { GrUpload } from "react-icons/gr";
 import { useRouter } from "next/router";
 function SelectCv() {
     const router = useRouter()
-    const [select, setselect] = useState(1)
+    const [select, setselect] = useState(undefined)
     const nextOpt=()=>{
       if(select ==1){
         router.push('/build-cv/experience-level')
       }
-      else{
+      else if(select == 2){
         router.push('/build-cv/user/login')
       }
     }
@@ -31,7 +31,7 @@ function SelectCv() {
           <div className="row">
             <div className="col-sm-6 mx-auto">
                 <div className={`${select == 1 && styles.active} ${styles.section}`} onClick={()=>selectOpt(1)}>
-              <div className="car rounded h-100 border-0 text-center">
+              <div className="rounded h-100 border-0 text-center">
                   <div className="card-header border-0 bg-white text-danger">
                     <GrDocumentText size="2.5rem" />
                   </div>
@@ -47,7 +47,7 @@ function SelectCv() {
             </div>
             <div className="col-sm-6 my-2">
                 <div className={`${select == 2 && styles.active} ${styles.section}`} onClick={()=>selectOpt(2)}>
-              <div className="car h-100 border-0 text-center">
+              <div className="card h-100 border-0 text-center">
                   <div className="card-header border-0 bg-white text-danger">
                     <GrUpload size="2.5rem" />
                   </div>
@@ -64,8 +64,8 @@ function SelectCv() {
             </div>
           </div>
           <div className="d-flex justify-content-between my-4">
-           <button className="btn rounded-pill btn-lg btn-danger" onClick={navigateBack}><FaArrowLeft /> back</button>
-           <button className="btn rounded-pill btn-lg btn-success" onClick={nextOpt}>Continue <FaForward /> </button>
+           <button className={`btn rounded-pill btn-md btn-danger`} onClick={navigateBack}><FaArrowLeft /> back</button>
+           <button className="btn rounded-pill btn-md btn-success" onClick={nextOpt}>Continue <FaForward /> </button>
           </div>
         </div>
       </div>

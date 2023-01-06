@@ -1,81 +1,106 @@
-import React, { useEffect, useState } from 'react'
-import styles from "/styles/experience.module.css"
-import { FaArrowLeft, FaForward } from 'react-icons/fa'
-import { useRouter } from 'next/router'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import styles from "/styles/experience.module.css";
+import { FaArrowLeft, FaForward } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 function Employment() {
-  const router = useRouter()
-    const [position, setposition] = useState("")
-    const [employer, setemployer] = useState("")
-    const [city, setcity] = useState("")
-    const [startDate, setstartDate] = useState("")
-    const [present, setpresent] = useState(undefined)
-    const [endDate, setendDate] = useState("")
-    const [description, setdescription] = useState("")
-    const [employments, setemployments] = useState([])
-  const [userUniqueId, setuserUniqueId] = useState("")
-useEffect(()=>{
-    if(!localStorage.profileBio){
-        router.push('/build-cv/section/profile')
+  const router = useRouter();
+  const [position, setposition] = useState("");
+  const [employer, setemployer] = useState("");
+  const [city, setcity] = useState("");
+  const [startDate, setstartDate] = useState("");
+  const [present, setpresent] = useState(undefined);
+  const [endDate, setendDate] = useState("");
+  const [description, setdescription] = useState("");
+  const [employments, setemployments] = useState([]);
+  const [userUniqueId, setuserUniqueId] = useState("");
+  useEffect(() => {
+    if (!localStorage.profileBio) {
+      router.push("/build-cv/section/profile");
     }
-}, [])
-useEffect(()=>{
-    if(localStorage.userUniqueId){
-        setuserUniqueId(JSON.parse(localStorage.userUniqueId))
+  }, []);
+  useEffect(() => {
+    if (localStorage.userUniqueId) {
+      setuserUniqueId(JSON.parse(localStorage.userUniqueId));
     }
-}, [])
+  }, []);
 
-    const submit=()=>{
-        let employmentDetail;
-        if(present){
-            employmentDetail = {position, employer, city, startDate, present, description}
-        }
-        else{
-            employmentDetail = {position, employer, city, startDate, endDate, description}
-        }
+  const submit = () => {
+    let employmentDetail;
+    if (present) {
+      employmentDetail = {
+        position,
+        employer,
+        city,
+        startDate,
+        present,
+        description,
+      };
+    } else {
+      employmentDetail = {
+        position,
+        employer,
+        city,
+        startDate,
+        endDate,
+        description,
+      };
+    }
 
-            let newEmployment = [...employments, employmentDetail]
-        axios.post("/api/addEmployment", {userUniqueId, employmentDetail, verify: "employment"}).then((res)=>{
-          if(res.data.status){
-            let newEmployment = [...employments, employmentDetail]
-            setemployments(()=>{return newEmployment})
-            localStorage.setItem("employment", JSON.stringify(employments))
-            setposition("")
-            setemployer("")
-            setcity('')
-            setstartDate('')
-            setpresent(undefined)
-            setendDate('')
-            setdescription('')
-            toast.success(res.data.message)
-          }
-          else{
-            toast.error(res.data.message)
-          }
-        }).catch((err)=>{
-          toast.error(err.message)
+    let newEmployment = [...employments, employmentDetail];
+    if(!!position && !!employer){
+      axios
+        .post("/api/addEmployment", {
+          userUniqueId,
+          employmentDetail,
+          verify: "employment",
         })
+        .then((res) => {
+          if (res.data.status) {
+            let newEmployment = [...employments, employmentDetail];
+            setemployments(() => {
+              return newEmployment;
+            });
+            localStorage.setItem("employment", JSON.stringify(employments));
+            setposition("");
+            setemployer("");
+            setcity("");
+            setstartDate("");
+            setpresent(undefined);
+            setendDate("");
+            setdescription("");
+            toast.success(res.data.message);
+          } else {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
     }
+    else{
+      toast.error("Please fill all the input before proceeding")
+    }
+  };
 
-
-    const navigateForward =()=>{
-      router.push('/build-cv/section/skill')
-    }
-    const navigateBack =()=>{
-      router.back()
-    }
+  const navigateForward = () => {
+    router.push("/build-cv/section/skill");
+  };
+  const navigateBack = () => {
+    router.back();
+  };
   return (
     <>
-        <div className={`${styles.experience} container px-3 border-0`}>
-          <div className='container'>
-        <h2 className="text-end">
-          <span className="text-danger">Employ</span>
-          <span className="text-color">ment</span>
-          <hr />
-        </h2>
-        {/* first form column */}
+      <div className={`${styles.experience} container px-3 border-0`}>
+        <div className="container col-sm-8 mx-auto mt-5">
+          <h2 className="text-end">
+            <span className="text-danger">Employ</span>
+            <span className="text-color">ment</span>
+          </h2>
+            <hr />
+          {/* first form column */}
           <div>
             <div className="form row my-2">
               <h5 className="text-color">Employment Detail</h5>
@@ -150,9 +175,8 @@ useEffect(()=>{
                         className="form-control"
                         onChange={(e) => setendDate(e.target.value)}
                         value={endDate}
-               />
+                      />
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -161,8 +185,8 @@ useEffect(()=>{
             <div className="form">
               <div className="col-sm-12">
                 <textarea
-                  rows="10"
-                  cols="30"
+                  rows="5"
+                  cols="10"
                   placeholder="Description Here..."
                   className="form-control"
                   onChange={(e) => setdescription(e.target.value)}
@@ -171,25 +195,28 @@ useEffect(()=>{
               </div>
             </div>
             <button className="btn bg-color my-2" onClick={submit}>
-            Add &#43;
-          </button>
+              Add &#43;
+            </button>
           </div>
-        <div className="button my-2 d-flex justify-content-between card-footer">
-          <button
-            className="btn rounded-pill btn-lg btn-danger"
-            onClick={navigateBack}
-          >
-            <FaArrowLeft /> back
-          </button>
-          <button className="btn btn-success" onClick={navigateForward}>
-            Next <FaForward size="3vh" />{" "}
-          </button>
+          <div className="button my-2 d-flex justify-content-between card-footer">
+            <button
+              className="btn rounded-pill btn-md btn-danger"
+              onClick={navigateBack}
+            >
+              <FaArrowLeft /> back
+            </button>
+            <button
+              className="btn btn-success rounded-pill"
+              onClick={navigateForward}
+            >
+              Next <FaForward size="3vh" />{" "}
+            </button>
+          </div>
         </div>
-      </div>
       </div>
       <ToastContainer />
     </>
-  )
+  );
 }
 
-export default Employment
+export default Employment;

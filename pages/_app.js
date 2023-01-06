@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   }
   else{
     return <>
+
       <Navbar />
       <Component {...pageProps} />
     </>

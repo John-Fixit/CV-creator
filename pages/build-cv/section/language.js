@@ -64,7 +64,7 @@ function language() {
   return (
    <>
     <div className={`${style.experience} px-3 border-0 `}>
-      <div className=' container'>
+      <div className='container'>
       <div >
         <h2 className="text-end">
           <span className="text-danger">Lang</span>

@@ -151,16 +151,7 @@ function Form2() {
                         onChange={(e) => setstartDate(e.target.value)}
                         value={startDate}
                       />
-
-                      {/* <select className={`form-control`}>
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select> */}
-                    </div>
-                    {/* <div className="section col-6">
-                  <select className="form-control dropdown-toggle">{}</select>
-                </div> */}
+</div>
                   </div>
                 </div>
               </div>
@@ -184,19 +175,7 @@ function Form2() {
                         onChange={(e) => setendDate(e.target.value)}
                         value={endDate}
                       />
-                      {/* <select className={`form-control`}>
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select> */}
                     </div>
-                    {/* <div className="section col-6">
-                  <select className="form-control dropdown-toggle">
-                    {months.map((month) => (
-                      <option value={month.id}>{month.name}</option>
-                    ))}
-                  </select>
-                </div> */}
                   </div>
                 </div>
               </div>
@@ -208,12 +187,12 @@ function Form2() {
           </div>
           <div className="button my-2 d-flex justify-content-between">
             <button
-              className="btn rounded-pill btn-lg btn-danger"
+              className="btn rounded-pill btn-md btn-danger"
               onClick={navigateBack}
             >
               <FaArrowLeft /> back
             </button>
-            <button className="btn bg-color" onClick={navigateForward}>
+            <button className="btn bg-color rounded-pill" onClick={navigateForward}>
               Next <FaForward size="3vh" />
             </button>
           </div>
