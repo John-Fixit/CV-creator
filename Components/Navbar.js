@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 function Navbar() {
   const [selectedIndex, setselectedIndex] = useState(undefined)
+  const [currentRoute, setcurrentRoute] = useState("")
   const router = useRouter()
   const labels = [
     "Personal_info",
@@ -12,10 +13,17 @@ function Navbar() {
     "Skill",
     "Language",
   ];
+  useEffect(()=>{
+    setcurrentRoute((router.route).split("/")[2]) 
+  })
 
 const changeLabel=(label, index)=>{
     setselectedIndex(index)
     router.push(`/build-cv/section/${label.toLowerCase()}`)
+}
+
+const opp = {
+  
 }
 
   return (
@@ -32,6 +40,8 @@ const changeLabel=(label, index)=>{
             <span className="text-danger">My</span>
             <span style={{ color: "navy" }}>CV</span>
           </a>
+      {
+        currentRoute =="section" &&
           <button
             className="navbar-toggler"
             type="button"
@@ -43,10 +53,12 @@ const changeLabel=(label, index)=>{
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+      }
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              {labels.map((label, index) => {
-                return <li className={`nav-item rounded-pill ${index == selectedIndex&&"selected px-2 bg-color"}`} key={label} onClick={()=>changeLabel(label, index)}>
+              { currentRoute =="section" &&
+              labels.map((label, index) => {
+                return <li className={`nav-item rounded-pill ${index == selectedIndex&&"selected px-2"}`} key={label} onClick={()=>changeLabel(label, index)}>
                   <a
                     className={`nav-link ${index == selectedIndex&&"px-2 bg-color"}`}
                     href="#"
@@ -56,6 +68,7 @@ const changeLabel=(label, index)=>{
                   </a>
                 </li>;
               })}
+              
             </ul>
           </div>
         </div>
@@ -74,6 +87,7 @@ const Component = styled.div`
           display: flex;
           gap: 3rem;
           .selected{
+            background-color: navy;
             transition: all 0.5s ease;
           }
         }

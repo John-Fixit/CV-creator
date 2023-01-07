@@ -93,8 +93,8 @@ function Employment() {
   };
   return (
     <>
-      <div className={`${styles.experience} container px-3 border-0`}>
-        <div className="container col-sm-8 mx-auto mt-5">
+      <div className={`${styles.experience} px-3`}>
+        <div className="col-sm-8 mx-auto mt-5">
           <h2 className="text-end">
             <span className="text-danger">Employ</span>
             <span className="text-color">ment</span>
@@ -103,7 +103,7 @@ function Employment() {
           {/* first form column */}
           <div>
             <div className="form row my-2">
-              <h5 className="text-color">Employment Detail</h5>
+              <h5 className="text-color">Employment <span className="text-danger">Detail</span></h5>
               <div className="col-sm-12 my-2">
                 <div className="form-group">
                   <label htmlFor="">Position</label>

@@ -4,8 +4,9 @@ import { FaForward, FaPlus, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import axios from "axios";
+
 function Form2() {
   const router = useRouter();
   const [education, seteducation] = useState("");
@@ -90,9 +91,9 @@ function Form2() {
   };
 
   return (
-    <>
-      <div className={`${styles.experience} containe px-3 border-0`}>
-        <div className="containe">
+    <Container>
+      <div className={`${styles.experience} px-3`}>
+        <div className="mt-5">
           <h2 className="text-end">
             <span className="text-danger">Educ</span>
             <span className="text-color">ation</span>
@@ -199,8 +200,12 @@ function Form2() {
           <ToastContainer />
         </div>
       </div>
-    </>
+    </Container>
   );
 }
 
 export default Form2;
+
+const Container = styled.div`
+
+`
