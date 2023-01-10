@@ -6,6 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import loaderStyle from "/styles/loader.module.css";
 import {
   FaDownload,
   FaEnvelope,
@@ -21,46 +22,21 @@ import axios from "axios";
 function MyCv() {
   const componentRef = useRef();
   const router = useRouter();
-  const [personalInfo, setpersonalInfo] = useState({});
-  const [employment, setemployment] = useState([]);
-  const [education, seteducation] = useState([]);
-  const [skill, setskill] = useState([]);
-  const [profile, setprofile] = useState("");
-  const [languages, setlanguages] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [userDetail, setUserDetail] = React.useState(undefined);
 
   useEffect(() => {
-    if (localStorage.personalInfo) {
-      setpersonalInfo(JSON.parse(localStorage.personalInfo));
-    }
-    if (localStorage.employment) {
-      setemployment(JSON.parse(localStorage.employment));
-    }
-    if (localStorage.profileBio) {
-      setprofile(JSON.parse(localStorage.profileBio));
-    }
-    if (localStorage.skill) {
-      setskill(JSON.parse(localStorage.skill));
-    }
-    if (localStorage.education) {
-      seteducation(JSON.parse(localStorage.education));
-    }
-    if (localStorage.language) {
-      setlanguages(JSON.parse(localStorage.language));
-    }
-  }, []);
-  useEffect(() => {
+    console.log(router.query.userId)
     if (router.query.userId) {
       axios.get(`/api/getUserData/${router.query.userId}`).then((res) => {
         console.log(res);
-        setisLoading(false);
         if (res.data.status) {
+          setisLoading(false);
           setUserDetail(res.data.data);
         }
       });
     }
-  }, [router.query.user]);
+  }, [router]);
   const contactInfo = [
     {
       icon: <FaUserAlt />,
@@ -88,17 +64,25 @@ function MyCv() {
   const downloadBtn = useReactToPrint({
     content: () => componentRef.current,
   });
+  const backBtn=()=>{
+      router.back()
+  }
   return (
     <>
-      <div className={`col-sm-8 mx-auto py-2 ${style.col_sm}`}>
+      <div className={`mx-auto ${style.body}`}>
+        <div >
         {!isLoading && (
-          <button className="btn bg-color float-end" onClick={downloadBtn}>
-            <FaDownload /> Download
+          <button className={`btn btn-danger ${style.backBtn}`} onClick={backBtn}>
+            Back
           </button>
         )}
-
-        <div className={`${style.cvBody} shado border`} ref={componentRef}>
-          <div className={`${style.sideCl} shadow-sm rounded p-2 h-100`}>
+        {!isLoading && (
+          <button className={`btn bg-color float-end ${style.dwnBtn}`} onClick={downloadBtn}>
+            <FaDownload />
+          </button>
+        )}
+        <div className={`${style.cvBody}`} ref={componentRef}>
+          <div className={`${style.sideCl} shadow-sm rounded p-2`}>
             <div className={`avatar text-center`}>
               <Image
                 src={
@@ -136,6 +120,21 @@ function MyCv() {
             </div>
           </div>
           {/* body content */}
+          {
+            isLoading? <div className={`${loaderStyle.loader}`}>
+            <div className={`${loaderStyle.bar1}`}></div>
+            <div className={`${loaderStyle.bar2}`}></div>
+            <div className={`${loaderStyle.bar3}`}></div>
+            <div className={`${loaderStyle.bar4}`}></div>
+            <div className={`${loaderStyle.bar5}`}></div>
+            <div className={`${loaderStyle.bar6}`}></div>
+            <div className={`${loaderStyle.bar7}`}></div>
+            <div className={`${loaderStyle.bar8}`}></div>
+            <div className={`${loaderStyle.bar9}`}></div>
+            <div className={`${loaderStyle.bar10}`}></div>
+            <div className={`${loaderStyle.bar11}`}></div>
+            <div className={`${loaderStyle.bar12}`}></div>
+        </div>: 
           <div className={`bodyContent px-2 py-3`}>
             <Profile className={`profile my-2`}>
               {userDetail ? (
@@ -226,7 +225,9 @@ function MyCv() {
               )}
             </div>
           </div>
+          }
         </div>
+      </div>
       </div>
     </>
   );

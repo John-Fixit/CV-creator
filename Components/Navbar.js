@@ -55,10 +55,11 @@ const opp = {
           </button>
       }
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0" style={{ display: "flex",
+          gap: "3rem"}}>
               { currentRoute =="section" &&
-              labels.map((label, index) => {
-                return <li className={`nav-item rounded-pill ${index == selectedIndex&&"selected px-2"}`} key={label} onClick={()=>changeLabel(label, index)}>
+              labels.map((label, index) => (
+                 <li className={`nav-item rounded-pill ${index == selectedIndex&&"selected px-2"}`} key={label} onClick={()=>changeLabel(label, index)}>
                   <a
                     className={`nav-link ${index == selectedIndex&&"px-2 bg-color"}`}
                     href="#"
@@ -66,8 +67,8 @@ const opp = {
                   >
                     {label}
                   </a>
-                </li>;
-              })}
+                </li>
+              ))}
               
             </ul>
           </div>
@@ -86,6 +87,9 @@ const Component = styled.div`
         ul{
           display: flex;
           gap: 3rem;
+          .nav-item{
+            border-radius: 5vh;
+          }
           .selected{
             background-color: navy;
             transition: all 0.5s ease;
@@ -93,6 +97,11 @@ const Component = styled.div`
         }
 
       }
+    }
+  }
+  @media only screen and (max-width: 625px){
+    ul{
+      gap: 0.5rem !important;
     }
   }
 `

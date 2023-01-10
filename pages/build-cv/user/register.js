@@ -8,7 +8,6 @@ import axios from 'axios';
         const router = useRouter()
     const [userUniqueId, setuserUniqueId] = useState("")
     const [password, setpassword] = useState("")
-    const [userDetail, setuserDetail] = useState({})
     const [notValid, setnotValid] = useState(undefined)
     useEffect(()=>{
         if(localStorage.userUniqueId){
@@ -18,7 +17,6 @@ import axios from 'axios';
         }, [])
     const submit=()=>{
         const reqDetail = {userUniqueId, password}
-        userDetail.password = password
         if(password != ""){
             setnotValid(false)
             axios.post("/api/addPassword", reqDetail).then((res)=>{
@@ -31,7 +29,6 @@ import axios from 'axios';
             }).catch((err)=>{
                 toast.error(err.message)
             })
-            // localStorage.setItem("personalInfo", JSON.stringify(userDetail))
             setpassword("");
         }
         else{

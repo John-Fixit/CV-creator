@@ -12,10 +12,6 @@ function Form2() {
   const [education, seteducation] = useState("");
   const [school, setschool] = useState("");
   const [address, setaddress] = useState("");
-  // const [startMonth, setstartMonth] = useState("")
-  // const [startYear, setstartYear] = useState("")
-  // const [endMonth, setendMonth] = useState("")
-  // const [endYear, setendYear] = useState("")
   const [startDate, setstartDate] = useState("");
   const [endDate, setendDate] = useState("");
   const [present, setpresent] = useState(undefined);

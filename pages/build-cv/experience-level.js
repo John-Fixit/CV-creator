@@ -6,7 +6,7 @@ function ExperienceLevel() {
   const levels = [{ level: "Minimal Experince", year: "BEGINNER", id: "0" }, {level: "ENTRY LEVEL", year: "0-3 years", id: "1" }, {level: "others", year: "3+ years", id: "3" }];
   const getInfo = (params) => {
     if(params <2){
-        alert('you are welcome to world of Techies!')
+        alert('you are welcome to the world of Techies!')
     }
       router.push('/build-cv/section/personal_info')
   };

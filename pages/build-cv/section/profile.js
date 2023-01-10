@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaForward, FaPencilAlt, FaArrowLeft } from "react-icons/fa";
+import { FaForward, FaArrowLeft } from "react-icons/fa";
 import styles from "/styles/experience.module.css";
 import { useRouter } from "next/router";
 import axios from "axios";

@@ -4,6 +4,7 @@ import { GrDocumentText} from "react-icons/gr";
 import { FaArrowLeft, FaForward } from "react-icons/fa";
 import { GrUpload } from "react-icons/gr";
 import { useRouter } from "next/router";
+import styled from "styled-components"
 function SelectCv() {
     const router = useRouter()
     const [select, setselect] = useState(undefined)
@@ -29,11 +30,11 @@ function SelectCv() {
       <div className="containe shadow p-3">
           <h4 className="text-center">About to start creating your CV?</h4>
           <div className="row">
-            <div className="col-sm-6 mx-auto">
+            <div className="col-sm-5 mx-auto">
                 <div className={`${select == 1 && styles.active} ${styles.section}`} onClick={()=>selectOpt(1)}>
               <div className="rounded h-100 border-0 text-center">
                   <div className="card-header border-0 bg-white text-danger">
-                    <GrDocumentText size="2.5rem" />
+                    <GrDocumentText size="2rem" />
                   </div>
                   <div className="card-body">
                     <p className="fs-4" style={{ color: "navy" }}>
@@ -45,15 +46,15 @@ function SelectCv() {
                 </div>
               </div>
             </div>
-            <div className="col-sm-6 my-2">
+            <div className="col-sm-5 my-2">
                 <div className={`${select == 2 && styles.active} ${styles.section}`} onClick={()=>selectOpt(2)}>
               <div className="card h-100 border-0 text-center">
                   <div className="card-header border-0 bg-white text-danger">
-                    <GrUpload size="2.5rem" />
+                    <GrUpload size="2rem" />
                   </div>
                   <div className="card-body">
-                    <p className="fs-3" style={{ color: "navy" }}>
-                      I already started creating..
+                    <p className="fs-4" style={{ color: "navy" }}>
+                      I already started creating
                     </p>
                     <p>
                      Proceed to complete your CV with ease
@@ -63,14 +64,18 @@ function SelectCv() {
               </div>
             </div>
           </div>
-          <div className="d-flex justify-content-between my-4">
-           <button className={`btn rounded-pill btn-md btn-danger`} onClick={navigateBack}><FaArrowLeft /> back</button>
-           <button className="btn rounded-pill btn-md btn-success" onClick={nextOpt}>Continue <FaForward /> </button>
+           <BtnStyle>
+           {/* <button className={`btn rounded-pill btn-md btn-danger`} onClick={navigateBack}><FaArrowLeft /> back</button> */}
+           <button className={`btn rounded-pill btn-md btn-success ${!select&&"disabled"}`} onClick={nextOpt}>Continue <FaForward /> </button>
+           </BtnStyle>
           </div>
-        </div>
       </div>
     </>
   );
 }
 
 export default SelectCv;
+
+const BtnStyle = styled.div`
+
+`

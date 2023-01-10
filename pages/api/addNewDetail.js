@@ -44,7 +44,7 @@ export default function handler(req, res) {
       profile: "",
       certifcate: [],
       userUniqueId,
-      verify: req.body.verify
+      verify: req.body.verify,
     };
     let mailMessage = {
       from: "CreateMyCv",
@@ -64,52 +64,55 @@ export default function handler(req, res) {
         })
         .then((result) => {
           userSchemaDetail.profilePic = result.secure_url;
-          res.send(exec(userSchemaDetail, mailMessage, userUniqueId))
+          // res.send(exec(userSchemaDetail, mailMessage, userUniqueId))
+          exec(userSchemaDetail, mailMessage, userUniqueId);
         });
-    }
-    else{
-      res.send(exec(userSchemaDetail, mailMessage, userUniqueId))
-      console.log(exec(userSchemaDetail, mailMessage, userUniqueId))
+    } else {
+      // res.send(exec(userSchemaDetail, mailMessage, userUniqueId))
+     exec(userSchemaDetail, mailMessage, userUniqueId);
     }
   }
 }
 
-const exec= async(userSchemaDetail, mailMessage, userUniqueId)=>{
- 
-    const form = await new userModel(userSchemaDetail);
-  const saving = await form.save((err) => {
-      if (err) {
-        return{
-          message:"Network error, please check your connection!",
-          status:false
+const exec = async(userSchemaDetail, mailMessage, userUniqueId) => {
+  let messages = "hello";
+  const form = new userModel(userSchemaDetail);
+   form.save((err) => {
+    if (err) {
+      messages = {
+        message: "error",
+        status: "false",
+      };
+    } else {
+      transporter.sendMail(mailMessage, (err, result) => {
+        if (err) {
+          console.log(err);
+          // return{
+          //   message:"Registration not complete please check your connection",
+          //   status:false
+          // }
+          messages = {
+            message: "error",
+            status: "false",
+          };
+          console.log("sad")
+          console.log(messages);
+        } else {
+          // return{
+          //   message:"Details saved successfully, you will recieve an email shortly!",
+          //   status:false,
+          //   userUniqueId
+          // }
+          console.log("hurray")
+          messages = {
+            message: "success",
+            status: "true",
+          };
         }
-      }
-      else {
-        transporter.sendMail(mailMessage, (err, result) => {
-          if (err) {
-            console.log(err)
-            return{
-              message:"Registration not complete please check your connection",
-              status:false
-            }
-           
-          } else {
-            return{
-              message:"Details saved successfully, you will recieve an email shortly!",
-              status:false
-            }
-          }
-        });
-      }
-    })
-    const resp = await saving
-    if(resp){
-      console.log(resp)
+        console.log(messages);
+      });
     }
-    // return resp
-    // return {
-    //   message,
-    //   status,
-    //   userUniqueId
-    // }
-}
+    
+  });
+  
+};

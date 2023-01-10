@@ -127,3 +127,8 @@ function Skill() {
 }
 
 export default Skill;
+Skill.getLayOut=(pages)=>{
+  return <>
+    {pages}
+  </>
+} 
