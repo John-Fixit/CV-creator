@@ -58,6 +58,7 @@ function Form1() {
         console.log(response)
         if(response.data.status){
            localStorage.setItem('userUniqueId', JSON.stringify(response.data.userUniqueId));
+           toast.success(response.data.message)
            router.push('/build-cv/user/register');
         }
         else{
@@ -218,13 +219,13 @@ const navigateBack =()=>{
         </div>
         <div className="d-flex justify-content-between my-4">
               <button
-                className="btn rounded-pill btn-lg btn-danger"
+                className="btn rounded-pill btn-md btn-danger"
                 onClick={navigateBack}
               >
                 <FaArrowLeft /> back
               </button>
               <button
-                className="btn btn-lg bg-color"
+                className="btn btn-md bg-color"
                 onClick={nextOpt}
               >
                 {
@@ -241,6 +242,7 @@ const navigateBack =()=>{
             </div>
            <ToastContainer />
       </div>
+      
     </>
   );
 }

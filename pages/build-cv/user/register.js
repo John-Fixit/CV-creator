@@ -37,22 +37,22 @@ import axios from 'axios';
     }
   return (
    <>
-        <div className={`col-sm-5 mx-auto shadow-sm p-3 border-0 ${styles.experience}`}>
+        <div className={`col-sm-5 mx-auto shadow-sm p-3 border-0 ${styles.anim} ${styles.experience}`}>
             <div className='rounded p-2 bg-danger'>
             <div className='card shadow border-0 p-2'>
-            <h3 className='card-header text-center text-color'>Proceed create your password to secure your details</h3>
+            <h3 className='card-header text-center text-color'>Create your password to secure your details</h3>
             <div className='form my-2'>
                 <label htmlFor="" className='fw-bold'>Unique Id</label>
                 <div className='form-floating'>
                     <input type="text" className='form-control' placeholder='Unique Id' value={userUniqueId} readOnly/>
-                    <label htmFor="">Unique Id</label>
+                    <label htmlFor="">Unique Id</label>
                 </div>
             </div>
             <div className='form my-2'>
                 <label htmlFor="" className='fw-bold'>Password</label>
                 <div className='form-floating'>
                     <input type="password"  className={`form-control ${notValid && "is-invalid border-danger"}`} placeholder='password' onChange={(e)=>setpassword(e.target.value)}/>
-                    <label htmFor="">Password</label>
+                    <label htmlFor="">Password</label>
                 </div>
                 <span className="text-danger">{notValid&&'Password is required for the secure of your details'}</span>
             </div>

@@ -63,7 +63,7 @@ const opp = {
                   <a
                     className={`nav-link ${index == selectedIndex&&"px-2 bg-color"}`}
                     href="#"
-                    tabindex="-1"
+                    tabIndex="-1"
                   >
                     {label}
                   </a>
