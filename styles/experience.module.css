@@ -31,9 +31,7 @@
     border: 3px dashed rgb(7, 7, 100);
     font-weight: bold;
 }
-.scrollableForm{
-    
-}
+
 .anim{
     animation: anim;
     animation-duration: 0.7s;
@@ -44,6 +42,43 @@
 
 }
 
+.animCard{
+    position: absolute;
+    top: 6rem;
+    min-height: 2rem;
+    padding: 0.5rem 0.8rem;
+    color: white;
+    animation: animCard 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.dismiss{
+    animation: dismissAnim  0.8s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    /* display: none; */
+}
+
+@keyframes dismissAnim {
+    0% {
+      transform: translateY(-1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+
+ @keyframes animCard {
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+  }
+  
  @keyframes anim {
     0% {
         transform: translateY(-600px) rotateX(-30deg) scale(0);

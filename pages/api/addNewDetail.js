@@ -54,13 +54,16 @@ export default async function handler(req, res) {
     };
     transporter.sendMail(mailMessage, (err, result) => {
       if (err) {
-        err.code == "ESOCKET"
+        console.log(err)
+        console.log(err.code)
+        err.code == "EENVELOPE"
           ? res.send({
-              message: "Network error, please check your connection!",
+              
+              message: "Email entered is invalid, please use a valid email",
               status: false,
             })
           : res.send({
-              message: "Email entered is invalid, please use a valid email",
+            message: "Network error, please check your connection!",
               status: false,
             });
       } else {
@@ -98,8 +101,9 @@ export default async function handler(req, res) {
           const form = new userModel(userSchemaDetail);
           form.save((err, data) => {
             if (err) {
+              console.log(err)
               res.send({
-                message: "Internet server error",
+                message: err.message,
                 status: false,
               });
             } else {

@@ -17,6 +17,8 @@ function Form2() {
   const [present, setpresent] = useState(undefined);
   const [educations, seteducations] = useState([]);
   const [userUniqueId, setuserUniqueId] = useState("");
+  const [createResponse, setcreateResponse] = useState("")
+  const [fadeOut, setfadeOut] = useState(false)
   useEffect(() => {
     if (!localStorage.personalInfo) {
       router.push("/build-cv/section/personal_info");
@@ -24,13 +26,9 @@ function Form2() {
     if (localStorage.userUniqueId) {
       setuserUniqueId(JSON.parse(localStorage.userUniqueId));
     }
+  
   }, []);
-  useEffect(() => {
-    if (localStorage.userUniqueId) {
-      setuserUniqueId(JSON.parse(localStorage.userUniqueId));
-    }
-  }, []);
-
+ 
   const months = [
     { name: "January", id: "1" },
     { name: "February", id: "2" },
@@ -85,6 +83,7 @@ function Form2() {
   const navigateBack = () => {
     router.back();
   };
+
 
   return (
     <Container>
@@ -196,6 +195,7 @@ function Form2() {
           <ToastContainer />
         </div>
       </div>
+
     </Container>
   );
 }
@@ -203,5 +203,6 @@ function Form2() {
 export default Form2;
 
 const Container = styled.div`
+
 
 `

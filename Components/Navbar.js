@@ -86,7 +86,7 @@ const Component = styled.div`
       .navbar-collapse{
         ul{
           display: flex;
-          gap: 3rem;
+          // gap: 3rem;
           .nav-item{
             border-radius: 5vh;
           }
