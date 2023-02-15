@@ -9,7 +9,6 @@ export default function handler(req, res){
             { $push: { skill: skillDetail }, verify },
             (err, result) => {
               if (err) {
-                  console.log(err)
                 res.send({
                   message:
                     "Unexpected error, please check your connection",

@@ -22,7 +22,7 @@ export default function handler(req, res){
             })
         }
        }).catch((err)=>{
-        console.log(err)
+            res.status(500).send({message: "Internal server error", status: false})
        })
     }  
 }

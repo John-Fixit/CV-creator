@@ -9,7 +9,6 @@ export default async function handler(req, res, next) {
       { $push: { employment: employmentDetail }, verify },
       (err, result) => {
         if (err) {
-            console.log(err)
           res.send({
             message:
               "Unexpected error, please check your connection",

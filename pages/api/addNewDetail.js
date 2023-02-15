@@ -26,6 +26,7 @@ export default async function handler(req, res) {
   if (req.method == "POST") {
     let roundedNo = Math.floor(Math.random() * 1000);
     const userUniqueId = req.body.firstName + roundedNo;
+    res.send(userUniqueId)
     let userSchemaDetail = {
       surname: req.body.surname,
       firstName: req.body.firstName,
@@ -54,8 +55,6 @@ export default async function handler(req, res) {
     };
     transporter.sendMail(mailMessage, (err, result) => {
       if (err) {
-        console.log(err)
-        console.log(err.code)
         err.code == "EENVELOPE"
           ? res.send({
               
@@ -101,13 +100,12 @@ export default async function handler(req, res) {
           const form = new userModel(userSchemaDetail);
           form.save((err, data) => {
             if (err) {
-              console.log(err)
               res.send({
                 message: err.message,
                 status: false,
               });
             } else {
-              res.send({
+              res.status(200).send({
                 message:
                   "Details saved successfully, you will recieve an email shortly!",
                 status: true,

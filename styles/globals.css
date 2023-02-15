@@ -11,6 +11,9 @@
   background-color: navy;
 }
 
+input:focus{
+  outline: none !important;
+}
 @media only screen and (max-width: 625px)  {
   .list-unstyled{
     width: 8vh;

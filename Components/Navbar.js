@@ -55,7 +55,7 @@ const opp = {
           </button>
       }
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0" style={{ display: "flex",
+            <ul className="navbar-nav mx-auto mb- mb-lg-0" style={{ display: "flex",
           gap: "3rem"}}>
               { currentRoute =="section" &&
               labels.map((label, index) => (

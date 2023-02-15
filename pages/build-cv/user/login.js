@@ -20,7 +20,6 @@ function Login() {
         .then((res) => {
             setisLoading(false)
           if (res.data.status) {
-            console.log(res.data);
             setpassword("");
             setuserUniqueId("");
             setnotValid(false);
@@ -51,12 +50,12 @@ function Login() {
       >
         <div >
         <button
-          className="btn rounded bg-color border-danger"
+          className={`btn rounded bg-color border-danger ${styles.bounceAnim}`}
           onClick={ navigateBack}
         >
           <FaArrowLeft /> back
         </button>
-        <div className="rounded p-2 bg-danger">
+        <div className={`rounded p-2 bg-danger ${styles.anim}`}>
           <div className="card shadow border-0 p-2">
             <h3 className="card-header text-center text-color">
               Log in to continue creating your CV

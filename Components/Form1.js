@@ -26,7 +26,7 @@ function Form1() {
     let fileSelected = e.target.files[0];
     let fileType = fileSelected.name.split(".");
     let fileSize = fileSelected.size;
-    fileType = fileType[1];
+    fileType = fileType[fileType.length-1].toString();
     if (fileTypeRequired.includes(fileType)) {
       if (fileSize > 10000000) {
         alert(
@@ -67,11 +67,9 @@ function Form1() {
       axios
         .post("/api/addNewDetail", userDetail)
         .then((response) => {
+        
           setloading("");
-          setresMsgSts(response.data.status)
-          console.log(response);
           if (response.data.status) {
-            setresMsg(response.data.message)
             localStorage.setItem( 
               "userUniqueId",
               JSON.stringify(response.data.userUniqueId)
@@ -84,6 +82,7 @@ function Form1() {
           }
         })
         .catch((err) => {
+          console.log(err)
           toast.error(err.message);
         });
     }
@@ -115,9 +114,9 @@ function Form1() {
                 <Image
                   src={profilePic != "" ? profilePic : "/user.jpg"}
                   alt="loading"
-                  width="300"
-                  height="300"
-                  className="align-center "
+                  width="250"
+                  height="250"
+                  className="align-center rounded-circle"
                 />
               </div>
               <div className="col-md-7">

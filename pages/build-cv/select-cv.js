@@ -10,7 +10,7 @@ function SelectCv() {
     const [select, setselect] = useState(undefined)
     const nextOpt=()=>{
       if(select ==1){
-        router.push('/build-cv/experience-level')
+        router.push('/build-cv/section/personal_info')
       }
       else if(select == 2){
         router.push('/build-cv/user/login')
@@ -21,9 +21,6 @@ function SelectCv() {
         setselect(params)
     }
 
-   const  navigateBack=()=>{
-    router.back()
-    }
   return (
     <>
         <div className={styles.experience}>
@@ -65,7 +62,6 @@ function SelectCv() {
             </div>
           </div>
            <BtnStyle>
-           {/* <button className={`btn rounded-pill btn-md btn-danger`} onClick={navigateBack}><FaArrowLeft /> back</button> */}
            <button className={`btn rounded-pill btn-md btn-success ${!select&&"disabled"}`} onClick={nextOpt}>Continue <FaForward /> </button>
            </BtnStyle>
           </div>

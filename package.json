@@ -29,6 +29,7 @@
     "react-to-print": "^2.14.10",
     "react-toastify": "^9.0.8",
     "styled-components": "^5.3.6",
-    "swr": "^2.0.0"
+    "swr": "^2.0.0",
+    "twilio": "^3.84.1"
   }
 }

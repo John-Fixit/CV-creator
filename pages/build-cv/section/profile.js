@@ -45,7 +45,7 @@ function ProfileNote() {
   }
   return (
     <>
-      <div className={`${styles.experience} container border-0`}>
+      <div className={`${styles.experienc} container border-0`}>
         <div className="col-sm-8 mx-auto shadow-sm">
           <h2 className="text-end">
             <span className="text-danger">Profile</span>{" "}
