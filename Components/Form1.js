@@ -42,7 +42,7 @@ function Form1() {
       }
     } else {
       alert(
-        `oooh sorry, you are uploading ${fileType} image, and it is not allowed. (only allowed extension is: jpg, png, jpeg, gif`
+        `You are uploading ${fileType} image, and it is not allowed. (only allowed extension are: jpg, png, jpeg, gif`
       );
     }
   };
@@ -82,7 +82,6 @@ function Form1() {
           }
         })
         .catch((err) => {
-          console.log(err)
           toast.error(err.message);
         });
     }

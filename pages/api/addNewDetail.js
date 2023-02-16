@@ -26,7 +26,6 @@ export default async function handler(req, res) {
   if (req.method == "POST") {
     let roundedNo = Math.floor(Math.random() * 1000);
     const userUniqueId = req.body.firstName + roundedNo;
-    res.send(userUniqueId)
     let userSchemaDetail = {
       surname: req.body.surname,
       firstName: req.body.firstName,

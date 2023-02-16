@@ -1,7 +1,7 @@
 import connection from "../../Database/Connect";
 import { userModel } from "../../Database/Schema";
 import bcrypt from "bcryptjs"
-connection()
+// connection()
 export default function handler(req, res){
     let saltRound = 10
     if(req.method == "POST"){
@@ -16,7 +16,7 @@ export default function handler(req, res){
                          res.send({message: "Network error, please try again!", status: false})
                      }
                      else{
-                         res.send({message: "Details saved successfully!", status: true})
+                         res.send({message: "Details saved successfully!", status: true, user})
                      }
                 })
             }

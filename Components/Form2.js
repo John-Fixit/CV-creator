@@ -17,8 +17,6 @@ function Form2() {
   const [present, setpresent] = useState(undefined);
   const [educations, seteducations] = useState([]);
   const [userUniqueId, setuserUniqueId] = useState("");
-  const [createResponse, setcreateResponse] = useState("")
-  const [fadeOut, setfadeOut] = useState(false)
   useEffect(() => {
     if (!localStorage.personalInfo) {
       router.push("/build-cv/section/personal_info");

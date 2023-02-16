@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
 import styled from "styled-components";
 function Navbar() {
   const [selectedIndex, setselectedIndex] = useState(undefined)
@@ -14,16 +15,16 @@ function Navbar() {
     "Language",
   ];
   useEffect(()=>{
-    setcurrentRoute((router.route).split("/")[2]) 
+    setcurrentRoute((router.route).split("/")[2])
   })
 
 const changeLabel=(label, index)=>{
     setselectedIndex(index)
-    router.push(`/build-cv/section/${label.toLowerCase()}`)
+    router.push(`/build-cv/section/${label.toLowerCase()}`)   
 }
-
-const opp = {
-  
+const logout=()=>{
+  localStorage.clear()
+  router.push("/build-cv/select-cv")
 }
 
   return (
@@ -69,7 +70,10 @@ const opp = {
                   </a>
                 </li>
               ))}
-              
+              <div className="my-auto" style={{cursor: "pointer"}}>
+                <FaSignOutAlt size={"2.5vh"} color={"navy"} onClick={logout}/>
+                <span className="text-danger"> Logout</span>
+                </div>              
             </ul>
           </div>
         </div>

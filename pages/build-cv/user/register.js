@@ -21,6 +21,7 @@ import axios from 'axios';
             setnotValid(false)
             axios.post("/api/addPassword", reqDetail).then((res)=>{
                    if(res.data.status){
+                    localStorage.setItem("personalInfo", res.data.user.verify)
                     router.push("/build-cv/section/education")
                    }
                    else{
