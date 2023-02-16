@@ -153,8 +153,8 @@ function MyCv() {
               {userDetail && userDetail.employment.length ? (
                 <div>
                   <b className="text-danger">Employment</b>
-                  {userDetail.employment.map((item) => (
-                    <div className={`my-2`}>
+                  {userDetail.employment.map((item, i) => (
+                    <div className={`my-2`} key={i}>
                       <div className="d-flex">
                         <div className="col-4">
                           <b className="text-color">{item.position}</b>
@@ -181,8 +181,8 @@ function MyCv() {
               {userDetail && userDetail.education.length ? (
                 <div>
                   <b className="text-danger">Education</b>
-                  {userDetail.education.map((item) => (
-                    <div className={`my-2`}>
+                  {userDetail.education.map((item, i) => (
+                    <div className={`my-2`} key={i}>
                       <div className="d-flex">
                         <div className="col-4">
                           <p>
@@ -208,8 +208,8 @@ function MyCv() {
               {userDetail && userDetail.language.length ? (
                 <div>
                   <b className="text-danger">Language</b>
-                  {userDetail.language.map((item) => (
-                    <div className={`my-2`}>
+                  {userDetail.language.map((item, i) => (
+                    <div className={`my-2`} key={i}>
                       <ul>
                         <li>
                           {item.languageName} -{" "}

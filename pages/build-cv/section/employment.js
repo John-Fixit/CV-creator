@@ -20,12 +20,11 @@ function Employment() {
     if (!localStorage.profileBio) {
       router.push("/build-cv/section/profile");
     }
-  }, []);
-  useEffect(() => {
     if (localStorage.userUniqueId) {
       setuserUniqueId(JSON.parse(localStorage.userUniqueId));
     }
   }, []);
+
 
   const submit = () => {
     let employmentDetail;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import style from "/styles/experience.module.css";
 import { ToastContainer, toast } from 'react-toastify';
-import { FaBackward, FaCheck, FaForward } from 'react-icons/fa';
+import { FaBackward } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
-function language() {
+function Language() {
   const router = useRouter()
     const [languageName, setlanguageName] = useState("")
     const [languageRange, setlanguageRange] = useState("0")
@@ -18,12 +18,11 @@ function language() {
         if(localStorage.language){
           setlanguages(JSON.parse(localStorage.language))
         }
+        if(localStorage.userUniqueId){
+            setuserUniqueId(JSON.parse(localStorage.userUniqueId))
+        }
     }, [])
-    useEffect(()=>{
-      if(localStorage.userUniqueId){
-          setuserUniqueId(JSON.parse(localStorage.userUniqueId))
-      }
-  }, [])
+
     const submit = () => {
       let languageDetail = { languageName, languageRange };
       const toastOption = {
@@ -123,4 +122,4 @@ function language() {
   )
 }
 
-export default language
+export default Language

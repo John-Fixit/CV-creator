@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import styled from "styled-components";
+import useSWR from "swr"
 function Navbar() {
   const [selectedIndex, setselectedIndex] = useState(undefined)
   const [currentRoute, setcurrentRoute] = useState("")
@@ -14,9 +15,10 @@ function Navbar() {
     "Skill",
     "Language",
   ];
+  const {} = useSWR()
   useEffect(()=>{
     setcurrentRoute((router.route).split("/")[2])
-  })
+  }, [router])
 
 const changeLabel=(label, index)=>{
     setselectedIndex(index)
