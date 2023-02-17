@@ -34,7 +34,6 @@ function Language() {
       };
       if (languageName != "") {
         axios.post("/api/addLanguage", {userUniqueId, languageDetail, verify: "language"}).then((res)=>{
-          console.log(res.data);
           if(res.data.status){
             let newLanguage = [...languages, languageDetail]
         setlanguages(newLanguage)

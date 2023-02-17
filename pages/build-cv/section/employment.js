@@ -48,7 +48,6 @@ function Employment() {
       };
     }
 
-    let newEmployment = [...employments, employmentDetail];
     if(!!position && !!employer){
       axios
         .post("/api/addEmployment", {
