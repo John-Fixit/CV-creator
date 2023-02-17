@@ -25,6 +25,7 @@ const changeLabel=(label, index)=>{
     router.push(`/build-cv/section/${label.toLowerCase()}`)   
 }
 const logout=()=>{
+  console.log("HI")
   localStorage.clear()
   router.push("/build-cv/select-cv")
 }
@@ -73,8 +74,8 @@ const logout=()=>{
                 </li>
               ))}
               {
-               currentRoute =="section" &&  <div className="my-auto" style={{cursor: "pointer"}}>
-               <FaSignOutAlt size={"2.5vh"} color={"navy"} onClick={logout}/>
+               currentRoute =="section" &&  <div className="my-auto" style={{cursor: "pointer"}} onClick={logout}>
+               <FaSignOutAlt size={"2.5vh"} color={"navy"}/>
                <span className="text-danger"> Logout</span>
                </div>     
               }
