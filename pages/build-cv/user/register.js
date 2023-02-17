@@ -8,6 +8,7 @@ import axios from 'axios';
         const router = useRouter()
     const [userUniqueId, setuserUniqueId] = useState("")
     const [password, setpassword] = useState("")
+    const [isLoading, setisLoading] = useState(false)
     const [notValid, setnotValid] = useState(undefined)
     useEffect(()=>{
         if(localStorage.userUniqueId){
@@ -17,8 +18,9 @@ import axios from 'axios';
         }, [])
     const submit=()=>{
         const reqDetail = {userUniqueId, password}
-        if(password != ""){
+        if(!!password){
             setnotValid(false)
+            setisLoading(true)
             axios.post("/api/addPassword", reqDetail).then((res)=>{
                    if(res.data.status){
                     localStorage.setItem("personalInfo", res.data.user.verify)
@@ -29,8 +31,10 @@ import axios from 'axios';
                    }
             }).catch((err)=>{
                 toast.error(err.message)
+            }).finally(()=>{
+                setpassword("");
+                setisLoading(false)
             })
-            setpassword("");
         }
         else{
             setnotValid(true)
@@ -45,8 +49,8 @@ import axios from 'axios';
             <div className='form my-2'>
                 <label htmlFor="" className='fw-bold'>Unique Id</label>
                 <div className='form-floating'>
-                    <input type="text" className='form-control' placeholder='Unique Id' value={userUniqueId} readOnly/>
-                    <label htmlFor="">Unique Id</label>
+                    <input type="text" className='form-control' placeholder='Uneditable' value={userUniqueId} disabled/>
+                    <label htmlFor="">Uneditable</label>
                 </div>
             </div>
             <div className='form my-2'>
@@ -57,7 +61,18 @@ import axios from 'axios';
                 </div>
                 <span className="text-danger">{notValid&&'Password is required for the secure of your details'}</span>
             </div>
-                <button className='btn bg-color' onClick={submit}>Submit</button>
+                <button className='btn bg-color' onClick={submit}>
+                {
+                    isLoading? 
+                    <div className="d-flex justify-content-center gap-3">
+                    <div class="spinner-border text-light" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-light my-auto">Submit</p>
+                    </div>
+                    : "Submit"
+                }
+                </button>
         </div>
         </div>
         </div>

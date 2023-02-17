@@ -5,11 +5,13 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaArrowLeft } from "react-icons/fa";
+import Loader from "react-spinners/BarLoader"
+
 function Login() {
   const router = useRouter();
   const [userUniqueId, setuserUniqueId] = useState("");
   const [password, setpassword] = useState("");
-    const [isLoading, setisLoading] = useState(false)
+    const [isLoading, setisLoading] = useState(true)
   const [notValid, setnotValid] = useState(undefined);
 
   const submit = () => {
@@ -98,11 +100,15 @@ function Login() {
             <button className="btn bg-color" onClick={submit}>
                 {
                     isLoading? 
+                    <div className="d-flex justify-content-center gap-3">
                     <div class="spinner-border text-light" role="status">
                       <span class="visually-hidden">Loading...</span>
                     </div>
+                    <p className="text-light my-auto">Login</p>
+                    </div>
                     : "Log In"
                 }
+                
             </button>
           </div>
         </div>

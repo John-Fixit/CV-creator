@@ -79,7 +79,6 @@ const logout=()=>{
                <span className="text-danger"> Logout</span>
                </div>     
               }
-                      
             </ul>
           </div>
         </div>
