@@ -1,8 +1,5 @@
 import React from "react";
-import styles from "/styles/experience.module.css";
-import { useRouter } from "next/router";
-import Form1 from "../../../Components/form1";
-import { FaArrowLeft } from "react-icons/fa"
+import Form1 from "../../../Components/Form1";
 
 function Cnct() {
   return (

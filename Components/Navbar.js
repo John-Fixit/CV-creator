@@ -72,10 +72,13 @@ const logout=()=>{
                   </a>
                 </li>
               ))}
-              <div className="my-auto" style={{cursor: "pointer"}}>
-                <FaSignOutAlt size={"2.5vh"} color={"navy"} onClick={logout}/>
-                <span className="text-danger"> Logout</span>
-                </div>              
+              {
+               currentRoute =="section" &&  <div className="my-auto" style={{cursor: "pointer"}}>
+               <FaSignOutAlt size={"2.5vh"} color={"navy"} onClick={logout}/>
+               <span className="text-danger"> Logout</span>
+               </div>     
+              }
+                      
             </ul>
           </div>
         </div>

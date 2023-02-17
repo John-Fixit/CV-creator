@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import styles from "../styles/experience.module.css";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -91,9 +90,6 @@ function Form1() {
     router.back();
   };
 
-  const confirm=()=>{
-     setdismissRes(true)
-  }
   return (
     <>
       <div className={`px-3`}>
